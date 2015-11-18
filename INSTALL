@@ -1,0 +1,23 @@
+
+Installation
+============
+
+This program was developed under Linux. These instructions are
+valid for a UNIX system. Compilation under Windows OS should
+work as well. 
+
+Before you compile this program make sure you have LAPACK
+installed.
+
+You also need the Bessel library. The library is a subset of the much
+larger SLATEC library, which can be downloaded from www.netlib.org.
+
+Unzip and untar the file.
+
+tar -xzvf gratanal-0-0-1.tar.gz
+
+Make sure Makefile points to the appropriate library path where the
+lapack library resides.
+
+Type ``make'' at the prompt and enter.
+
