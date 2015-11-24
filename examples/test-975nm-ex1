@@ -1,0 +1,77 @@
+#
+#  Copyright 2015  School of Engineering, Southern Methodist University
+#
+#  Permission to use, copy, and distribute this software and its
+#  documentation for any purpose with or without fee is hereby granted,
+#  provided that the above copyright notice appear in all copies and
+#  that both the copyright notice and this permission notice appear
+#  in supporting documentation.
+#
+#  This software is provided "as is" without express or implied warranty
+#  to the extent permitted by applicable law.
+#
+# ----------------------------------------------------
+# --------------  Structure parameters ---------------
+# ----------------------------------------------------
+# WVL = Wavelength
+WVL = 0.975
+# Zguess (Root guess)  -- alpha + jBeta - ZG = alpha Beta
+ZG = -0.0000029	3.36211
+# STYPE (structure type) can be WG (waveguide) and GRAT (waveguide 
+# with grating perturbation)
+STYPE = GRAT
+# ----------------------------------------------------
+# ---------------   Grating Section ------------------
+# ----------------------------------------------------
+# GL = Grating Layer; FL = Fill Layer; PRD = Period; DC = Duty
+# layer number starts with 0
+# Cycle(Fraction); GS = Grating Shape;
+# GS = RECT, SIN, TRI, BLZ, and ARB corresponding to rectangular,
+# sinusoidal, triangular, blazed and arbitrary shaped gratings
+# count layer number from 0
+GS = RECT
+GL = 9
+FL = 0
+PRD = 0.2882
+DC = 0.5
+DX = 0.01
+# The number of boundary points is related to space harmonics (SH)
+# Number(half) of Space Harmonics and NCP (vertical boundary points)
+SH = 5
+NCP = 5
+# ----------------------------------------------------
+# ----------------------------------------------------
+# --------------- System parameters ------------------
+# ----------------------------------------------------
+# Loop on grating period. Increment by (INCR - (in um))
+INCR = 0.0001
+# Number of steps
+NSTEPS = 20
+# Counter propagating wave amplitude and phase (degrees)
+AMP = 0
+PH = 0
+# ----------------------------------------------------
+# ----------------- EPI Layers -----------------------
+# ----------    (part of Structure) ------------------
+LAYER_START
+# Layer Data Below
+# Input Data form
+# D1: Index of Layer
+# D2: Absorption Coefficient loss (1/cm)
+# D3: Layer thicknes (Same units as wavelength)
+# S9: Layer comments
+# D1	D2	D3	S9
+3.19278	0.0	0.0	GaAs substrate
+3.19278	0.0	1.5	n-cladding
+3.53	0.0	0.09	n-spacer
+3.344	0.0	0.11	n-SCH
+3.53	0.0	0.01	Shoulder
+3.65	0.0	0.0075	QW
+3.53	0.0	0.01	Shoulder
+3.344	0.0	0.11	p-SCH
+3.53	0.0	0.02	p-spacer
+3.19278	0.0	0.049	grating-layer
+3.53	0.0	0.1	fill layer
+3.19278	0.0	1.5	p-cladding
+3.19278	0.0	0.0	p-cap
+LAYER_END
