@@ -1,0 +1,177 @@
+
+\chapter{INTRODUCTION} \label{ch:introduction}
+
+\section{First Section Heading}
+
+This section tests the display of section headings.  Also,
+consideration should be given to the spacing before and after
+paragraphs and headings.
+
+\subsection{Maxwell's Equations}
+The four equations can be presented in differential or integral
+form. They are listed below in both forms.
+
+\begin{equation}
+\begin{array}{c c}
+\nabla \times \mathbf{E} = \frac{-\partial{\mathbf{B}}}{\partial{t}} &
+\qquad \oint \mathbf{E} \cdot dl = \frac{-\partial}{\partial{t}}\int
+\mathbf{B} \cdot d \mathbf{S} \\
+\end{array}
+\label{curlE}
+\end{equation}
+
+\begin{equation}
+\begin{array}{c c}
+\nabla \times \mathbf{H} = \mathbf{J} + 
+\frac{-\partial{\mathbf{D}}}{\partial{t}} &
+\qquad \oint \mathbf{H} \cdot dl = \int \mathbf{J} \cdot d \mathbf{S}
++ \frac{\partial}{\partial{t}}\int_{area} \mathbf{D} \cdot d \mathbf{S}
+\end{array}
+\label{curlH}
+\end{equation}
+
+\begin{equation}
+\begin{array}{c c}
+\nabla \cdot \mathbf{B} = 0 &
+\qquad \int \mathbf{B} \cdot d\mathbf{S} = 0 \\
+\nabla \cdot \mathbf{D} = \rho &
+\qquad \int \mathbf{D} \cdot d\mathbf{S} = Q_{enclosed}
+\end{array}
+\end{equation}
+
+$\mathbf{E}$ and $\mathbf{H}$ are electric and magnetic field
+amplitudes, whereas $\mathbf{D}$ and $\mathbf{B}$ are electric and
+magnetic flux densities respectively. $\mathbf{E}$, $\mathbf{H}$,
+$\mathbf{D}$ and $\mathbf{D}$ are continuous functions of space and
+time with continuous derivatives.
+
+Assuming simple linear relationship between electric vectors.
+
+\begin{equation}
+\mathbf{D} = \varepsilon \mathbf{E}
+\label{Ddef}
+\end{equation}
+
+Similarly relationship between $\mathbf{H}$ and $\mathbf{B}$ is given by
+
+\begin{equation}
+\mathbf{B} = \mu \mathbf{H}
+\label{magflux}
+\end{equation}
+
+The displacement vector D satisfies the equation below in the absense
+of electric charges.
+
+\begin{equation}
+\mathbf{\nabla \cdot D} = 0
+\label{defD0}
+\end{equation}
+
+The flow of electromagnetic power is space is described by the Poynting vector
+
+\begin{equation}
+\mathbf{S} = \mathbf{E} \times \mathbf{H}
+\end{equation}
+
+The power $\mathbf{P}$ flowing through an area A with an outward-directed normal unit vector n is given by
+
+\begin{equation}
+\mathbf{P} = \int_{\mathbf{A}} \mathbf{S} \cdot \mathbf{n}\, d{A}
+\end{equation}
+
+The time averaged poynting vector is given by
+
+\begin{equation}
+\mathbf{\bar{S}} = \frac{1}{2}[\mathbf{E} \times \mathbf{H^*}]
+\end{equation}
+
+\subsection{Wave Equation}
+
+Substituting (\ref{magflux}) into (\ref{curlE}) and taking the curl on
+both sides.
+
+\begin{equation}
+\nabla \times (\nabla \times \mathbf{E}) = 
+-\mu \frac{\partial{}}{\partial{t}}(\mathbf{\nabla \times H})
+\label{curlcurlE}
+\end{equation}
+
+Where $\mu$ is constant. Substituting (\ref{curlH}) and (\ref{Ddef})
+into (\ref{curlcurlE}).
+
+\begin{equation}
+\nabla \times (\nabla \times \mathbf{E}) + \varepsilon \mu
+\frac{\partial^2{E}}{\partial{t^2}}
+\label{curlcurlE2}
+\end{equation}
+
+Equation (\ref{curlcurlE2}) holds even when $\varepsilon$ varies.
+
+\begin{equation}
+\nabla \times (\nabla \times \mathbf{E}) =
+\nabla (\nabla \cdot \mathbf{E}) - \nabla^2 \mathbf{E}
+\label{vident}
+\end{equation}
+
+Using relationship (\ref{vident}), we can write (\ref{curlcurlE2}) as
+
+\begin{equation}
+\nabla (\nabla \cdot \mathbf{E}) - \nabla^2 \mathbf{E} + \varepsilon \mu
+\frac{\partial^2{E}}{\partial{t^2}} = 0
+\label{divergradE}
+\end{equation}
+
+Using (\ref{Ddef}) and product rule (\ref{divproductrule})
+
+\begin{equation}
+\nabla \cdot \left(\frac{1}{\varepsilon}\mathbf{D}\right)=
+ \left(\nabla \frac{1}{\varepsilon}\right)
+\cdot D + \frac{1}{\varepsilon}(\nabla \cdot D)
+\label{divproductrule}
+\end{equation}
+
+And in the absence of electric charges (\ref{defD0}), we can write equation
+(\ref{divergradE}) as
+
+\begin{equation}
+\nabla^2 \mathbf{E} + \nabla \left[ \mathbf{E} \cdot \frac{\nabla \varepsilon}
+{\varepsilon}\right]
+ = \varepsilon \mu \frac{\partial^2 \mathbf{E}}{\partial t^2}
+\label{earlywaveeq}
+\end{equation}
+
+When $\varepsilon$ is constant then
+
+\begin{equation}
+\nabla^2 \mathbf{E}
+ = \varepsilon \mu \frac{\partial^2 \mathbf{E}}{\partial t^2}
+\label{waveeq}
+\end{equation}
+
+The integral form of the curl equations are derived from the
+differential forms by application of Stokes Theorem. This
+theorem relates the curl o a vector function, A, into a line
+integral of the function.
+
+\begin{equation}
+\int_{area} ( \nabla \times \mathbf{A} ) \cdot d \mathbf{S} = 
+\oint_{loop} \mathbf{A} \cdot dl
+\end{equation}
+
+where $d \mathbf{S}$ and $d\mathbf{l}$ are unit vectors oriented normal
+to the surface. For the divergence equations, Gauss' divergence theorem
+
+Wave equation in terms of electric field amplitude reduced to its
+homogenous form is given by
+
+\begin{equation}
+\nabla^2 \mathbf{E} - \mu \epsilon \frac{\partial^2 
+  \mathbf{E}}{\partial t^2} = 0
+\end{equation}
+
+The wave equation in terms of magnetic field amplitude is 
+
+\begin{equation}
+\nabla^2 \mathbf{H} - \mu \epsilon \frac{\partial^2 
+  \mathbf{H}}{\partial t^2} = 0
+\end{equation}
