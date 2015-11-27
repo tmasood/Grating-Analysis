@@ -1,0 +1,89 @@
+
+%--------------------------------------------------------------------
+% Document Style
+%--------------------------------------------------------------------
+\documentclass[12pt]{report}
+\usepackage{smu_thesis}
+\usepackage{epsf}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+
+\linespread{1.6}
+%\thesisdraft
+
+\begin{document}
+
+%===================================================================
+%   Change information used to create front pages of thesis
+%===================================================================
+%%
+%%  last name, first name, initial
+%%
+ \Name{Masood}{Taha}{}
+
+%%
+%% title -- you have up to three lines to specify your title
+%% each line should be no more than 48 characters long
+%%
+ \Title{Grating Outcoupled Surface Emitting}{Semiconductor Lasers}{}
+%%
+%% degree you are seeking
+%%
+ \DegreeSought{Doctor of Philosophy}
+%%
+%% major
+%%
+ \Major{Electrical Engineering}
+ \University{Southern Methodist University}
+ \School{School of Engineering}
+%%
+%% date the degree will be confered
+%%
+ \DegreeDate{December 16, 2008}
+ \ThesisDate{December 16, 2008}
+%%
+%% is this a thesis, dissertation, or something else?
+%%
+ \ThesisType{Dissertation}
+%%
+%% your committee -- the rank of your advisor must be adjusted in
+%% smu_thesis.sty if it is not Professor.
+%%
+ \Advisor{Dr. Gary Evans}
+
+%===================================================================
+%   Create the front pages of the thesis
+%===================================================================
+
+ \ApprovalTitlePages
+
+%%
+%% include your dedication
+%%
+ \Dedicate{This dissertation is dedicated to ...}
+
+%===================================================================
+%   Begin the body of the thesis
+%===================================================================
+\begin{thesis}
+%===================================================================
+%   Chapters are included here
+%===================================================================
+\input{chap1.tex}  %   1. Introduction
+
+%===================================================================
+%   Appendices go here if no appendix, remove \StartAppendix
+%===================================================================
+\StartAppendix %All chapters from this point are treated as appendices
+
+%===================================================================
+%   Bibliography goes here
+%===================================================================
+
+\bibliographystyle{acm}
+\bibliography{thesis}
+
+\end{thesis}
+
+\end{document}
