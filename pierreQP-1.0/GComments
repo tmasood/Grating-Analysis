@@ -1,0 +1,84 @@
+/*
+/* 	PACKAGE FOR GAUSSIAN INTEGRATION
+/*
+/* Computation of abscissas and weights for gaussian integration,
+/* with various weight functions.  Provides for Legendre, Jacobi,
+/* Laguerre and Hermite integration formulas, and their Radau or
+/* Lobatto variants.  Centered on (modified) Laguerre polynomials
+/* and Jacobi polynomials.
+/*
+/* Translation of a program originally written for the HP-9826/36
+/* desktop computers, in HP-Pascal.
+/* No attempt is made to use the concise shortcuts peculiar to C.
+/* Instead, the C version is a more or less line-by-line translation
+/* of the Pascal original.  It is felt that little would
+/* be gained by changing the style:  most of the running time is
+/* spent on floating-point operations, so the efficiency
+/* is unlikely to improve;  possibly, the code size might be reduced
+/* with some effort.
+/*
+/* The module structure of the HP-Pascal original maps in a file
+/* structure in C.  The "Export" sections of the modules become
+/* ".h" files;  the "Implement" sections become the ".c" files;
+/* the "Import" sections become "#include" directives in the ".c"
+/* files.
+/**/
+/*
+/* Program structure:
+/* the functions "Jacobi", "Radau_Jacobi", "Lobatto_Jacobi",
+/* "Laguerre", "Radau_Laguerre",
+/* "Hermite", "OddHermite" and "EvenHermite" are
+/* drivers that perform some formatting after
+/* calling the main workhorse, "GaussMaster".
+/*
+/* "GaussMaster" calls the polynomial evaluator "QQp".
+/* The latter uses a recurrence relation on the degree
+/* to calculate the value and derivative of the nth Laguerre
+/* or Jacobi polynomial;  the zeroes of successive polynomials
+/* are interleaved, so "QQp" can also calculate how many roots lie
+/* in an interval (by counting sign changes).
+/* A call such as  "  rank = QQp(x, &value, &derivative);  "
+/* calculates the value and derivative at the point x,
+/* and returns the number of roots between zero and x.
+/* This information is used in three stages by "GaussMaster" as it
+/* tries to pin the roots of the polynomials:
+/*   Stage 1:  find an interval containing all n roots.
+/*   Stage 2:  bisect to find n intervals containing exactly one root.
+/*   Stage 3:  refine the roots by Newton's method.
+/*
+/* In stages 1 and 2, "GaussMaster" uses "QQp" sparingly, making the most
+/* of each call.  The resulting code is more efficient, but also more
+/* obscure.  This is now felt to be a bad tradeoff, considering the
+/* much larger workload involved in stage 3.
+/**/
+/*
+/* Peculiarities:
+/*
+/* In the original Pascal programs, "QQp" was local to "GaussMaster"
+/* and had access to some of "GaussMaster"'s formal parameters.
+/* The Pascal scope rules are aped in the present version by
+/* having "GaussMaster" copy these formal parameters to static variables
+/* external to "GaussMaster" and "QQp".  The technique works because
+/* there are no recursive calls.
+/*
+/* The C functions are written "top down", i.e. highest level first.
+/* Accordingly, there are forward declarations of lower-level functions.
+/*
+/* The name "GaussIndex" is made a synonym to "short" by a typedef.
+/* On the VAX, "short" is a 16-bit unsigned integer, which is enough.
+/* On other machines, an "int" may be needed.
+/*
+/* GaussMaster needs arrays, "double abscis[], weight[];"
+/* to store its results, and two more arrays,
+/* "double upbnd[];  GaussIndex rank[];"  for intermediate results.
+/* It turns out that the "intermediate" arrays can share storage
+/* with the "result" arrays, in the fashion of FORTRAN equivalence.
+/* This is done here in as portable a way as possible.
+/* CRITERION  FOR PORTABILITY:
+/* The storage size and alignment requirements of a "GaussIndex"
+/* must not exceed those of a "double".
+/*
+/* Normally, application programs won't need to "#include" the file
+/* "GaussCore.h".  If they do, programmers should be aware that
+/* the names TRUE and FALSE receive definitions there.
+/**/
