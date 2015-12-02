@@ -1,0 +1,54 @@
+/* HP-UX 10.x Imakefile for pierreQP by steff@csc.liv.ac.uk */
+
+CC = gcc
+CCOPTIONS =-Ae -D_HPUX_SOURCE -DSYSV
+CDEBUGFLAGS =+Z
+CFLAGS = $(CDEBUGFLAGS) $(CCOPTIONS)
+LOCAL_LIBRARIES =
+SYS_LIBRARIES =
+DEPS =
+
+
+
+SRCS = GaussCore.c  Jacobi.c  Hermite.c  Laguerre.c
+OBJS = GaussCore.o  Jacobi.o  Hermite.o  Laguerre.o
+
+AllTarget(libQP.a)
+libQP.a: $(OBJS)
+	@echo "***Building archived lib***"
+	ar -rv $@ $?
+
+AllTarget(libQP.sl)
+libQP.sl: $(OBJS)
+	@echo "***Building shared lib***"
+	ld -b -s -o $@  $?
+
+
+
+
+AllTarget(legendre)
+NormalProgramTarget(legendre,legendre.o,$(DEPS),$(SYS_LIBRARIES),libQP.a -lm)
+AllTarget(recurr)
+NormalProgramTarget(recurr,recurr.o,$(DEPS),$(SYS_LIBRARIES),libQP.a -lm)
+AllTarget(QPtest)
+NormalProgramTarget(QPtest,test.o,$(DEPS),$(SYS_LIBRARIES),libQP.a -lm)
+
+InstallProgram(legendre,$(BINDIR))
+InstallProgram(recurr,$(BINDIR))
+InstallProgram(QPtest,$(BINDIR))
+
+InstallLibrary(QP,$(LIBDIR))
+InstallSharedLibrary(QP,,$(LIBDIR))
+MANSUFFIX = 3
+InstallManPage(GM,$(MANDIR))
+InstallManPage(GQ,$(MANDIR))
+
+install::
+	-mkdirhier /opt/pierreQP/include
+	for i in GaussCore.h Hermite.h Jacobi.h  Laguerre.h; do \
+	(set -x; bsdinst -c -m 0644 $$i /opt/pierreQP/include); \
+	done
+
+
+clean::
+	rm -f *.a *.sl
