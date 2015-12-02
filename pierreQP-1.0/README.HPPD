@@ -1,0 +1,17 @@
+Package name:     pierreQP
+Version number:   1.0
+Original author:  Carnegie-Mellon University <N/A>
+Original URL:     ftp://usc.edu/pub/C-numanal
+Install tree:     /opt/pierreQP
+Report bugs to:   steff@csc.liv.ac.uk
+Tested on:        HP 9000/715/G running HP-UX 10.10
+C compiler used:  Version A.10.32.12
+Purpose:
+A package for Gaussian Integration. This package provides computation of
+abscissas and weights for gaussian integration, ith various weight functions.
+It provides for Legendre, Jacobi Laguerre and Hermite integration formulas, and
+and their Radau or Lobatto variants. Centered on (modified) Laguerre
+polynomials and Jacobi polynomials. Its a port of a program originally written
+for the HP-9826/36 desktop computers, in HP-Pascal.
+Date archived:    Wed 24 Sep 1997
+Special notes:    HPUX.Install is worth a read.
