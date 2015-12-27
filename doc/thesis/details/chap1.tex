@@ -1,11 +1,13 @@
 
 \chapter{INTRODUCTION} \label{ch:introduction}
 
-\section{First Section Heading}
+\section{Periodic Corrugations}
 
-This section tests the display of section headings.  Also,
-consideration should be given to the spacing before and after
-paragraphs and headings.
+Integrated optics devices such as couplers, filters, DFB and DBR
+lasers contain periodic corrugations. For these devices the
+propagating wavelength is of the same order as the spatial period of
+the corrugation. It is therefore necessary to apply field theory to
+determine characteristic modes.
 
 \subsection{Maxwell's Equations}
 The four equations can be presented in differential or integral
@@ -175,3 +177,134 @@ The wave equation in terms of magnetic field amplitude is
 \nabla^2 \mathbf{H} - \mu \epsilon \frac{\partial^2 
   \mathbf{H}}{\partial t^2} = 0
 \end{equation}
+
+\subsection{Floquet-Bloch Waves} The electromagnetic waves traveling
+along periodic structures is described by Floquet's theorem,
+
+\begin{equation}
+\mathbf{\Psi(x,y,z)} = e^{\gamma z} \mathbf{\Phi(x,y,z)} = 0
+\label{defD0}
+\end{equation}
+
+where $\Phi$ is a $z$-periodic vector valued function and $\gamma$
+is the propagation constant. The real part of $\gamma$ represents the
+attenuation and the imaginary part the phase shift of the fundamental
+mode in one period.
+
+The comtemporary approaches to find propagation constant rely on
+finding the roots of the determinant with Muller's or the Newton's
+method. Another approach solves they eigenvalue problem by relying on
+finding the roots of a Dirichlet-to-Neumann operator and linearization
+of the matrix problem.
+
+A typical waveguide geometry is shown in Fig. \ref{gratwg}. The
+wavegujide geometry consists of an infinite substrate region
+($\Omega_0$), several finite stratified layers, a grating layer
+sandwitched between the stratified layers, and an infinite superstrate
+region ($\Omega_J$). The structure is also infinite and homogeneous in
+the $y$-direction. The layers are assumed to be linear, isotropic, and
+non-dispersive, therefore the magnetic permeability $\mu$ and electric
+permettivity $\epsilon$ are constant scalars in each layer. A finite
+conductivity of the material is accounted by letting $\epsilon$ be
+complex.
+
+\setlength{\unitlength}{0.25in}
+\begin{picture}(20,10)(-2.5,0)
+\put(0,0){\line(1,0){15}}
+\put(0,2.5){\line(1,0){15}}
+\put(0,5){\line(1,0){15}}
+\put(5,-0.4){\line(0,1){5.8}}
+\put(7.5,-0.4){\line(0,1){5.8}}
+\put(9.5,0){\line(0,1){1.0}}
+\put(9.5,2.5){\line(0,1){1.0}}
+\put(10.5,2.5){\line(0,1){1.0}}
+\label{gratwg}
+\end{picture}
+
+For this geometry the fundamental modes of the guide are either
+transverse electric,
+
+\begin{equation}
+\mathbf{E}(x,y,z) = u(x,z)\mathbf{e}_y
+\end{equation}
+
+or transverse magnetic,
+
+\begin{equation}
+\mathbf{H}(x,y,z) = u(x,z)\mathbf{h}_y
+\end{equation}
+
+where the wavefunction $u$ satisfies the Helmholtz equation
+
+\begin{equation}
+\triangle u + \mu \epsilon \omega^2 u = 0
+\end{equation}
+
+in each layer.
+
+The condition, 
+
+\begin{equation}
+u^+ = u^- \textrm{and} \quad \frac{1}{\mu^+}\frac{\partial{u^+}}{\partial{n}} =
+\frac{1}{\mu^-}\frac{\partial{u^-}}{\partial{n}} \quad \textrm{for TE modes},
+\end{equation}
+
+\begin{equation}
+u^+ = u^- \textrm{and} \quad \frac{1}{\epsilon^+}\frac{\partial{u^+}}{\partial{n}} =
+\frac{1}{\epsilon^-}\frac{\partial{u^-}}{\partial{n}} \quad \textrm{for TM modes},
+\end{equation}
+
+holds at the interface of two different layers for TE and TM modes
+respectively. The superscript refers to the left or right side of the
+interface. In practical applications, the optical waveguide material
+is non-magnetic with magnetic permeability equal to that of free
+space.
+
+According to Floquet's theorem, the fundamental transverse mode must
+satisfy the periodic condition
+\begin{equation}
+u(x,z + \Lambda) = e^{\gamma \Lambda} u(x,z),
+\end{equation}
+
+where the propagation constant $\gamma$ is (in general)
+complex. Because of this condition, it suffices to solve the Helmholtz
+equation in one fundamental period $\Lambda$ of the grating. The
+boundary conditions on the upper and the lower boundary of the period,
+$\Gamma_2$ and $\Gamma_0$, repectively are
+\[ u|_{\Gamma_2} = e^{\gamma \Lambda} u|_{\Gamma_0} \] and
+\[ \frac{\partial u}{\partial n} |_{\Gamma_2} = -e^{\gamma \Lambda}
+ \frac{\partial u}{\partial n} |_{\Gamma_0}\]
+The negative sign in the above equation is due to the normals at
+$\Gamma_2$ and $\Gamma_0$ pointing in opposite directions.
+
+In the numerical treatment of Helmholz equation, the transverse
+structure is divided into three regions. The interior region
+$\Omega_{int}$ contains the grating layer and two semi-infinite
+exterior regions, $\Omega_+$ and $\Omega_-$ include the stratified
+layers above and below the grating layer repectively. The eigen value
+problem is then solved in the interior region numerically using the
+Boundary Element Method and matched with the analytical solution in
+the exterior regions.
+
+The solution in the exterior regions is expanded in terms of space
+harmonics in the form
+
+\begin{equation}
+u(x,z) = \sum_{n \in Z} f_n^- e^{(ik_{xn}^J(x - x^+))} e^{k_{zn}z},
+x \geq x^+
+\end{equation}
+
+\begin{equation}
+u(x,z) = \sum_{n \in Z} f_n^+ e^{(ik_{xn}^0(x^- - x))} e^{k_{zn}z},
+x \geq x^-
+\end{equation}
+
+where $i = sqrt{-1}, j \in \lbrace 0,J \rbrace$ and 
+
+\[ k_{zn} = \frac{2 n \pi i}{\Lambda} + \gamma, \]
+\[ k_{xn}^j = \pm \sqrt{k_{zn}^2 + \mu_j \epsilon_j \omega^2} \]
+
+The $f_n^\pm$ are the fourier coefficients on $\Gamma_3^\pm$
+
+\[ f_n^\pm = \frac{1}{\Lambda}\int_0 u(x^\pm,z) e^{-k_{zn} z} dz. \]
+
