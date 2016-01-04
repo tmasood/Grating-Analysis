@@ -262,6 +262,7 @@ space.
 
 According to Floquet's theorem, the fundamental transverse mode must
 satisfy the periodic condition
+
 \begin{equation}
 u(x,z + \Lambda) = e^{\gamma \Lambda} u(x,z),
 \end{equation}
@@ -271,9 +272,13 @@ complex. Because of this condition, it suffices to solve the Helmholtz
 equation in one fundamental period $\Lambda$ of the grating. The
 boundary conditions on the upper and the lower boundary of the period,
 $\Gamma_2$ and $\Gamma_0$, repectively are
-\[ u|_{\Gamma_2} = e^{\gamma \Lambda} u|_{\Gamma_0} \] and
-\[ \frac{\partial u}{\partial n} |_{\Gamma_2} = -e^{\gamma \Lambda}
- \frac{\partial u}{\partial n} |_{\Gamma_0}\]
+
+\begin{equation}
+u|_{\Gamma_2} = e^{\gamma \Lambda} u|_{\Gamma_0} \textrm{and}
+\frac{\partial u}{\partial n} |_{\Gamma_2} = -e^{\gamma \Lambda}
+ \frac{\partial u}{\partial n} |_{\Gamma_0}
+\end{equation}
+
 The negative sign in the above equation is due to the normals at
 $\Gamma_2$ and $\Gamma_0$ pointing in opposite directions.
 
@@ -281,30 +286,81 @@ In the numerical treatment of Helmholz equation, the transverse
 structure is divided into three regions. The interior region
 $\Omega_{int}$ contains the grating layer and two semi-infinite
 exterior regions, $\Omega_+$ and $\Omega_-$ include the stratified
-layers above and below the grating layer repectively. The eigen value
-problem is then solved in the interior region numerically using the
-Boundary Element Method and matched with the analytical solution in
-the exterior regions.
+layers above and below the grating layer repectively (see
+Fig. \ref{gratwg2}). The left interface of the domain is denoted by
+$\Gamma_3^-$ and $\Gamma_3^+$ is the right interface.
+
+\setlength{\unitlength}{0.25in}
+\begin{picture}(20,10)(-2.5,0) \put(0,0){\line(1,0){15}}
+\put(0,2.5){\line(1,0){15}} \put(0,5){\line(1,0){15}}
+\put(5,-0.4){\line(0,1){5.8}} \put(7.5,-0.4){\line(0,1){5.8}}
+\put(9.5,0){\line(0,1){1.0}} \put(9.5,2.5){\line(0,1){1.0}}
+\put(10.5,2.5){\line(0,1){1.0}}
+\label{gratwg2}
+\end{picture}
 
 The solution in the exterior regions is expanded in terms of space
 harmonics in the form
 
 \begin{equation}
-u(x,z) = \sum_{n \in Z} f_n^- e^{(ik_{xn}^J(x - x^+))} e^{k_{zn}z},
-x \geq x^+
+u(x,z) = \sum_{n \in \mathbf{Z}} f_n^- e^{(ik_{xn}^J(x -
+x^+))} e^{k_{zn}z}, x \geq x^+
+\label{spharm1}
 \end{equation}
 
 \begin{equation}
-u(x,z) = \sum_{n \in Z} f_n^+ e^{(ik_{xn}^0(x^- - x))} e^{k_{zn}z},
-x \geq x^-
+u(x,z) = \sum_{n \in \mathbf{Z}} f_n^+ e^{(ik_{xn}^0(x^- -
+x))} e^{k_{zn}z}, x \geq x^-
+\label{spharm2}
 \end{equation}
 
-where $i = sqrt{-1}, j \in \lbrace 0,J \rbrace$ and 
+where $i = sqrt{-1}, j \in \lbrace 0,J \rbrace$ and
 
-\[ k_{zn} = \frac{2 n \pi i}{\Lambda} + \gamma, \]
-\[ k_{xn}^j = \pm \sqrt{k_{zn}^2 + \mu_j \epsilon_j \omega^2} \]
+\begin{equation} k_{zn} = \frac{2 n \pi i}{\Lambda} + \gamma,
+\end{equation}
 
-The $f_n^\pm$ are the fourier coefficients on $\Gamma_3^\pm$
+\begin{equation} k_{xn}^j = \pm \sqrt{k_{zn}^2 + \mu_j \epsilon_j
+\omega^2}
+\end{equation}
 
-\[ f_n^\pm = \frac{1}{\Lambda}\int_0 u(x^\pm,z) e^{-k_{zn} z} dz. \]
+The $f_n^\pm$ are the fourier coefficients of the solution on
+$\Gamma_3^\pm$
 
+\begin{equation}
+f_n^\pm = \frac{1}{\Lambda}\int_0 u(x^\pm,z) e^{-k_{zn} z} dz
+\label{fcoeff}
+\end{equation}
+
+The solution in the exterior regions can be obtained from
+\ref{fcoeff}, \ref{spharm1}, \ref{spharm2}, if $\gamma$ and $u$ on the
+interface $\Gamma_3$ are given. The mapping from $u|_{\Gamma_3}$ to
+$\frac{\partial u}{\partial n} |_{\Gamma_3}$ is the
+Dirichlet-to-Neumann (DtN) map for the exterior region, which we write
+as
+
+\begin{equation}
+\frac{\partial u}{\partial n} |_{\Gamma_3} \coloneqq T_{ext}(\gamma)
+u|_{\Gamma_3} = \left \{ \begin{array}{ll} \sum_{n \in \mathbf{Z}} i
+k_{xn}^J f_n^+ e^{k_{zn}z} \quad \textrm{on} \; \Gamma_3^+ \\
+\sum_{n \in \mathbf{Z}} ik_{xn}^0 f_n^- e^{-k_{zn}z} \quad
+\textrm{on}\; \Gamma_3^- \end{array}\right .
+\end{equation}
+
+The problem is reduced to finding the values of $\gamma$ for which the
+Helmholtz equation in $\Omega_{int}$ has non-trivial solutions.
+
+\begin{equation}
+\begin{array}{ll}
+\triangle u + \mu \epsilon \omega^2 u = 0, \quad \textrm{in}
+\Omega_{int} \\
+u|_{\Gamma_2} = e^{\gamma \Lambda} u|_{\Gamma_0} \\
+\frac{\partial u}{\partial n} |_{\Gamma_2} = -e^{\gamma \Lambda}
+ \frac{\partial u}{\partial n} |_{\Gamma_0} \\
+\frac{\partial u}{\partial n} |_{\Gamma_3} =  T_{ext}(\gamma) u|_{\Gamma_3}
+\end{array}
+\end{equation} 
+
+ The eigen value
+problem is then solved in the interior region numerically using the
+Boundary Element Method and matched with the analytical solution in
+the exterior regions.
