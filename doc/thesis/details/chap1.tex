@@ -360,7 +360,67 @@ u|_{\Gamma_2} = e^{\gamma \Lambda} u|_{\Gamma_0} \\
 \end{array}
 \end{equation} 
 
- The eigen value
-problem is then solved in the interior region numerically using the
-Boundary Element Method and matched with the analytical solution in
-the exterior regions.
+ The eigen value problem is then solved in the interior region
+numerically using the Boundary Element Method and matched with the
+analytical solution in the exterior regions.
+
+Helmholtz equation is reduced to a linear system after
+discretization. Some coefficients of this linear system depend on the
+propagation constant $\gamma$ non-linearly. The task is to find
+$\gamma$ such that the matrix is non-singular, which is a non-linear
+eigen value problem.
+
+Previous methods differ in the solution of the interior problem; for
+instance \ref{} describes expansion in spatial harmonics, and \ref{}
+describes use of boundary element method.
+
+The approach followed here is an equivalent formulation based on DtN
+map which leads to much smaller matrix problems. The Helmholtz
+equation in $\Omega_{int}$ with given Dirichlet boundary conditions on
+$\Gamma_3$
+
+\begin{equation}
+\begin{array}{ll}
+\triangle u + \mu \epsilon \omega^2 u = 0, \quad \textrm{in}
+\Omega_{int} \\
+u|_{\Gamma_2} = e^{\gamma \Lambda} u|_{\Gamma_0} \\
+\frac{\partial u}{\partial n} |_{\Gamma_2} = -e^{\gamma \Lambda}
+ \frac{\partial u}{\partial n} |_{\Gamma_0} \\
+u|_{\Gamma_3} = f
+\end{array}
+\label{DtNf}
+\end{equation} 
+
+has a unique solution $u$.
+
+The interior DtN map is given by
+\begin{equation}
+  T_{int}(\gamma) f = \frac{\partial u}{\partial n} |_{\Gamma_3}
+\end{equation} 
+
+where $u$ is the solution of \ref{DtNf}.
+
+The propagation constants are values of $\gamma$ that make the operator
+\begin{equation}
+T(\gamma) = T_{int}(\gamma) - T_{ext}(\gamma)
+\end{equation} 
+
+singular. That is, there is a Dirichlet condition f $\neq$ 0 on
+$\Gamma_3$ such that
+\begin{equation}
+T(\gamma) f = 0
+\label{eqTf}
+\end{equation}
+
+Since f is in the nullspace of $T(\gamma)$, the normal derivatives
+approached from both sides of the interface match, and therefore $u$
+is a solution on the infinite strip and $\gamma$ is a propagation
+constant.
+
+Problem \ref{eqTf} is attractive for numerical calculation because the
+unknown f is defined only on the interface $\Gamma_3$. Thus fewer
+degrees of freedom in the discretization are required than the problem
+in $\Omega_{int}$.
+
+\subsubsection{Discretization of the DtN map}
+To discretize operator equation \ref{eqTf} a Galerkin approach is employed. To this end, the approximate solution is written as a linear combination of harmonics up to a given degree $p$.
