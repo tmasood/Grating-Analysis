@@ -403,6 +403,7 @@ where $u$ is the solution of \ref{DtNf}.
 The propagation constants are values of $\gamma$ that make the operator
 \begin{equation}
 T(\gamma) = T_{int}(\gamma) - T_{ext}(\gamma)
+\label{eqTdiff}
 \end{equation} 
 
 singular. That is, there is a Dirichlet condition f $\neq$ 0 on
@@ -423,4 +424,58 @@ degrees of freedom in the discretization are required than the problem
 in $\Omega_{int}$.
 
 \subsubsection{Discretization of the DtN map}
-To discretize operator equation \ref{eqTf} a Galerkin approach is employed. To this end, the approximate solution is written as a linear combination of harmonics up to a given degree $p$.
+To discretize operator equation \ref{eqTf} a Galerkin approach is
+employed. To this end, the approximate solution is written as a linear
+combination of harmonics up to a given degree $p$.
+\begin{equation}
+f_p = \sum_{|n|\leq p} f_n^+ e_n^+ + \sum_{|n| \leq p} f_n^- e_n^-
+\label{eqfp}
+\end{equation} 
+
+where
+
+\begin{equation}
+e_n^\pm (z)\coloneqq \left \{ \begin{array} {ll}
+e^{k_{zn} z}, \quad \textrm{on} \; \Gamma_3^{\pm}, \\
+0, \quad \textrm{on} \; \Gamma_3^\pm,
+\end{array} \right .
+\label{eqepm}
+\end{equation} 
+
+We seek a propagation-constant $\gamma_p$ and a non-zero function $f_p$ of
+the form of \ref{eqfp} such that the residual $T(\gamma_p) f_p$ is
+orthogonal to the functions $e_n^\pm$ for $|n| \leq p$. This
+results in the non-linear eigenvalue problem
+
+\begin{equation}
+T(\gamma_p) f_p = 0,
+\end{equation} 
+
+where $T(\gamma_p)$ is a matrix of size $4p+2$ whose coefficients depend nonlinearly on $\gamma$.
+
+The coefficients of $T(\gamma_p)$ are the discretized interior and
+exterior DtN maps difference \ref{eqTdiff}. It follows from \ref{} and
+the orthognality of the harmonics that the exterior discretized DtN
+map is a diagonal matrix of size $4p+2$ with entries $ik_{xn}^0$ and
+$ik_{xn}^J$.
+
+In the interior region coupling of modes occurs and thus the
+discretization of the interior DtN map is a dense matrix. The interior
+problems \ref{DtNf} with the Dirichlet condition
+
+\begin{equation}
+  f = e_n^\pm
+\label{fe}
+\end{equation} 
+
+on $\Gamma_\pm$ must be solved $4p+2$ times for all harmonics in
+\ref{eqepm} to obtain the colums of the matrix. The matrix entries of
+$T_{int,p}(\gamma)$ are the Fourier coefficients of the normal
+derivative of the solutions of \ref{DtNf} with the boundary conditions of
+$\Gamma_3$ given by \ref{fe}, that is,
+
+\begin{equation} [T_{int,p}(\gamma)]_{n \pm,m \pm} = \int_0^\Lambda
+e_n^\pm(z) \frac{\partial \bar{u}_m}{\partial n_z} \bigg|_{\Gamma_3^\pm} dz
+\end{equation}
+
+
