@@ -178,7 +178,8 @@ The wave equation in terms of magnetic field amplitude is
   \mathbf{H}}{\partial t^2} = 0
 \end{equation}
 
-\subsection{Floquet-Bloch Waves} The electromagnetic waves traveling
+\subsection{Floquet-Bloch Waves}
+The electromagnetic waves traveling
 along periodic structures is described by Floquet's theorem,
 
 \begin{equation}
@@ -449,6 +450,7 @@ results in the non-linear eigenvalue problem
 
 \begin{equation}
 T(\gamma_p) f_p = 0,
+\label{eqTpfp}
 \end{equation} 
 
 where $T(\gamma_p)$ is a matrix of size $4p+2$ whose coefficients depend nonlinearly on $\gamma$.
@@ -474,8 +476,155 @@ $T_{int,p}(\gamma)$ are the Fourier coefficients of the normal
 derivative of the solutions of \ref{DtNf} with the boundary conditions of
 $\Gamma_3$ given by \ref{fe}, that is,
 
-\begin{equation} [T_{int,p}(\gamma)]_{n \pm,m \pm} = \int_0^\Lambda
-e_n^\pm(z) \frac{\partial \bar{u}_m}{\partial n_z} \bigg|_{\Gamma_3^\pm} dz
+\begin{equation}
+[T_{int,p}(\gamma)]_{n \pm,m \pm} = \int_0^\Lambda e_n^\pm(z)
+\frac{\partial \bar{u}_m}{\partial n_z} \bigg|_{\Gamma_3^\pm} dz
+\label{TintCoeff}
 \end{equation}
 
+The interior problem \ref{DtNf} has no closed solution and therefore a
+second discretization is required to obtain the normal derivatives of
+the field in \ref{TintCoeff}. This can be accomplished with a finite
+element discretization as demonstrated in \ref{}, and more recently
+with a more efficient BEM \ref{}.
+
+Since the BEM has only unknowns on the interfaces $\Gamma_0$,
+$\Gamma_1$, $\Gamma_2$ and $\Gamma_3$, the resulting influence matrix
+is small enough to be handled with direct methods as opposed to
+iterative methods which are more expensive for small problems. The
+influence matrix and its LU decomposition have to be computed only
+once to solve the $4p+2$ interior problems. Thus the overall
+computational cost does not significantly increase with $p$.
+
+Once the solution of \ref{eqTpfp} has been determined, the eigenmode can be
+calculated in the exterior regions by \ref{spharm1} and in the interior
+regions by using the Green's formula.
+
+\subsection{Exterior Problem}
+It is important for the efficiency of the method that the interior
+domain $\Omega_{int}$ is kept as small as possible, since the interior
+problem must be solved repeatedly for each step of the non-linear
+solver. This can be achieved by including the uniform layers in the
+exterior domains $\Omega_+$ and $\Omega_-$. To account for these
+layers, the exterior DtN map must be modified using a transfer matrix
+analysis.
+
+For a TE mode, the j-th finite stratified layer is of the form
+\begin{equation}
+u(x,z) = \sum_{n \in \mathbf{Z}} e^{k_{zn} z} \{cos(k_{xn}^j(x-x_j))
+\phi_n^j + \frac{u_j}{k_{xn}^j} sin(k_{xn}^j(x-x_j))\psi_n^j \}
+\end{equation}
+
+The state variables $\phi_n^j$ and $\psi_n^j$ describe the function
+value and the derivative at the interfaces of the layers and are given
+by
+\begin{equation}
+\phi_n^j = u_n(x_j),
+\end{equation}
+
+\begin{equation}
+\psi_n^j = \frac{1}{u_j} \frac{\partial{u_n}}{\partial{x}},
+\end{equation}
+
+where the $u_n$'s are the Fourier coefficients of $u$. The interface
+condition on $u$ in \ref{}, results in the state variables of two
+adjacent layers coupled via the relation
+
+\begin{equation}
+\left[ \begin{array}{ll} \phi_n^{j+1} \\ \psi_n^{j+1}
+\end{array} \right] = T_n^j(\gamma)
+\begin{array}{ll} [\phi_n^{j} \\ \psi_n^{j}] \end{array}
+\end{equation}
+
+where the matrix $T_n^j(\gamma)$ is the transfer matrix of the state
+variables across layer j
+
+\begin{equation}
+T_n^j(\gamma) = \left[ \begin{array}{cc} 1 & 0 \\
+0 & \frac{1}{u_j} \end{array} \right]
+\left[ \begin{array}{cc}  cos(k_{xn}^j w_j) & sin(k_{xn}^j
+ w_j)/k_{xn}^j \\
+-sin(k_{xn}^j w_j) k_{xn}^j & cos(k_{xn}^j w_j) \end{array}
+\right]\left[ \begin{array}{cc} 1 & 0 \\
+0 & u_j \end{array} \right]
+\end{equation}
+
+and $w_j$ is the width of the $j^{th}$ layer.
+
+The translation of the state variables from the outer- to the
+innermost layer (i.e the interface $\Gamma_3^-$ located at $x_j-$) is
+the product of translation operators across all layers
+
+\begin{equation}
+\left[ \begin{array}{ll} \phi_k^{j^-} \\ \psi_k^{j^-}
+\end{array} \right] = T_n^{j^-}(\gamma) ..... T_n^1(\gamma)
+\begin{array}{ll} [1 \\ k_{xn}^0] \end{array}
+\end{equation}
+w\begin{equation}
+\left[ \begin{array}{ll} \phi_n^{j+1} \\ \psi_n^{j+1}
+\end{array} \right] = T_n^j(\gamma)
+\begin{array}{ll} [\phi_n^{j} \\ \psi_n^{j}] \end{array}
+\end{equation}
+
+The translation to the interface $\Gamma_3^+$ located at $x_j+$
+follows in a similar fashion. The DtN maps at $\Gamma_3$ are then
+given by 
+
+\begin{equation}
+T_{ext}(\gamma) e_n^\pm = u_j \frac{\psi_n^{j^\pm}}{\phi_n^{j^\pm}} e_n^\pm
+\end{equation}
+
+The exterior DtN map for the TM mode can be obtained by replacing the
+$u$'s in the formulas (\ref{}-\ref{}) by $\epsilon$'s.
+
+\subsection{Nonlinear Solver}
+A modification of the Newton's method for the solution of the
+nonlinear eigenvalue problem \ref{} is explained in this section. An
+approach is to find the roots of the determinant of $T_p(\gamma)$ or
+to find the roots of the function
+
+\begin{equation}
+F(x,\gamma) = \left[ \begin{array}{cc} T_p(\gamma)x \\
+x*x-1 \end{array} \right]
+\end{equation}
+
+with either Newton's or Muller's method. Although both ideas have been
+considered, see, e.g., \ref{} and the references therein, they have
+difficulties for the application considered. The determinant has large
+variation in $\gamma$ which can cause an iterative solver to converge
+to a non-physical root. A solver based on setting $F(x,\gamma)$ = 0
+requires in addition to the propagation constant a good initial guess
+for the eigenvector $x$; this is hard near Bragg condition where
+solution branches intersect or nearly intersect. In this case, both
+solution techniques will converge only in a small neighborhood of the
+root.
+
+The nonlinear solver (Matrix Newton Method) used in this project has
+unique advantages associated with its convergence. The idea is to
+determine the correction of the current approximation $\bar{\gamma}$
+(where $T _p$ is nonsingular) such that the linearization of
+$T_p(\bar{\gamma}+\delta)$ becomes singular. The Newton correction can
+be determined from the largest eigenvalue $\lambda$ of
+$T_p(\bar{\gamma})^{-1} T_p^\prime (\bar{\gamma})$ by Linearizing about
+$\bar{\gamma}$.
+
+\begin{equation}
+T_p(\bar{\gamma})+\delta T_p^\prime (\bar{\gamma}) = \delta T_p(\bar{\gamma})
+(\frac{1}{\delta} I + T_p(\bar{\gamma})^{-1} T_p^\prime (\bar{\gamma}))
+\end{equation}
+
+The next iterate is then given by
+$\bar{\gamma} \coloneqq \bar{\gamma}-\frac{1}{\lambda}$. Since discretizations typically
+require only a small value of $p$, the additional numerical cost for
+solving the eigenvalue problem for each linearization is insignificant
+compared to the cost of setting up the matrix $T_p(\gamma)$.
+
+\subsection{Branch Choice of Complex Square Root}
+The sign of the square root in the transverse wave number of the
+semi-infinite layers is a critical issue, because its choice
+determines whether the $n^{th}$ harmonic will be proper or improper.
+For a planar guide without any corrugation all modes either move away
+or decay from the guiding region. Since for a planar guide the
+propagation constant is purely imaginary, it follows that the positive
+branch in \ref{} must be chosen.
 
