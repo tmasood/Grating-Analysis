@@ -1,6 +1,6 @@
 //
-//  Copyright 2015 Quantum Designs LLC, Taha Masood, Johannes Tausch
-//  and Jerome Butler
+//  Copyright 2015, 2016 Quantum Designs LLC, Taha Masood,
+//  Johannes Tausch  and Jerome Butler
 //
 //  Permission to use, copy, and distribute this software and its
 //  documentation for any purpose with or without fee is hereby granted,
@@ -30,12 +30,15 @@ complex<double> calcsolnpt(int order, complex<double> *v, complex<double> *w,
   fval = 0.0;
   ord2 = 2*order+1;
 
-  // from equation 24 of Dr Johannes Tausch Paper
+  // from equation 24 of Dr. Johannes Tausch Paper 
+  // "Efficient Analysis of Periodic Dielectric Waveguides using 
+  // Dirichlet-to-Neumann Maps". The j-th finite stratified layer is
+  // of the form
   // u(x,0) = Sum_over_n[phi_n * cos(kxn(x - xj)) +
-  // chi_n * (u/kxn) * sin(kxn(x - xj))]
+  // psi_n * (u/kxn) * sin(kxn(x - xj))]
 
-  // thus for each harmonic kxn = gkb
-  // (x - xj) = h, v = phi, and w = chi
+  // thus for each harmonic kxn = gkb[k]
+  // (x - xj) = h, v[k] = phi[n], and w[k] = psi[n]
   for (k = 0; k < ord2; k++)
     {
       fval += v[k]*cos(gkb[k]*h);
