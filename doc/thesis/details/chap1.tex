@@ -187,10 +187,18 @@ along periodic structures is described by Floquet's theorem,
 \label{defD0}
 \end{equation}
 
-where $\Phi$ is a $z$-periodic vector valued function and $\gamma$
-is the propagation constant. The real part of $\gamma$ represents the
-attenuation and the imaginary part the phase shift of the fundamental
-mode in one period.
+where $\Phi$ is a $z$-periodic vector valued function and $\gamma$ is
+the propagation constant (Floquet multiplier). The real part of
+$\gamma$ represents the attenuation and the imaginary part the phase
+shift of the fundamental mode in one period.
+
+For the period of physical corrugation of length $d$, the time
+harmonic electromagnetic field $\Psi(x,y,z)$ has the property
+
+\begin{equation}
+\mathbf{\Psi(x,y,z + d)} = e^{\gamma d} \mathbf{\Psi(x,y,z)} = 0
+\label{defD1}
+\end{equation}
 
 The comtemporary approaches to find propagation constant rely on
 finding the roots of the determinant with Muller's or the Newton's
@@ -223,13 +231,15 @@ complex.
 \end{picture}
 
 For this geometry the fundamental modes of the guide are either
-transverse electric,
+transverse electric (TE), where the electric field only has component
+in the $y$-direction,
 
 \begin{equation}
 \mathbf{E}(x,y,z) = u(x,z)\mathbf{e}_y
 \end{equation}
 
-or transverse magnetic,
+or transverse magnetic (TM), where the magnetic field only has component in
+the $y$-direction,
 
 \begin{equation}
 \mathbf{H}(x,y,z) = u(x,z)\mathbf{h}_y
@@ -242,6 +252,20 @@ where the wavefunction $u$ satisfies the Helmholtz equation
 \end{equation}
 
 in each layer.
+
+Or,
+
+\begin{equation}
+\triangle u + \kappa^2 u = 0
+\label{HelmholtzEq2}
+\end{equation}
+
+The wave number $\kappa$ depends on the electromagnetic properties of
+the layers and is piecewise constant function
+
+\begin{equation}
+\kappa(x,z) = \kappa_j = \omega \sqrt{\mu_0 \epsilon_j}
+\end{equation}
 
 The condition, 
 
@@ -261,8 +285,54 @@ interface. In practical applications, the optical waveguide material
 is non-magnetic with magnetic permeability equal to that of free
 space.
 
-According to Floquet's theorem, the fundamental transverse mode must
-satisfy the periodic condition
+Floquet theory PDEs with periodic coefficients can be reduced to
+problems posed on one periodic cell. In that cell, the solution of the
+Helmholtz equation is of the form
+
+\begin{equation}
+u(x,z) = e^{\gamma z} v(x,z)
+\label{solutionHelmholtz}
+\end{equation}
+
+where $v$ is periodic in z.
+
+Substituting $u$ in (\ref{solutionHelmholtz}) into the Helmholtz
+equation (\ref{HelmholtzEq2}) results in
+
+Because of periodicity, (\ref{HelmholtzPDE}) can be solved in the unit
+strip $\mathbf{R} x [0,1]$ with periodic boundary conditions. The
+problem is to find the characteristic values of $\gamma$ for which
+equation (\ref{HelmholtzPDE}) has a non-trivial solution.
+
+For infinite and stratified layers the solution of
+(\ref{HelmholtzPDE}) is obtained by seperation of variables. In the
+j-th layer the wave function is a linear superposition of spatial
+harmonics in the form
+
+\begin{equation}
+v_k^{\pm j}(x,z) = e^{\pm i \gamma_k^j x} e^{2 \pi ikz}
+\label{wavefun}
+\end{equation}
+
+where $\gamma_k^j$ is the transverse wave number and is given by the
+dispersion relation
+
+\begin{equation}
+\gamma_k^j = \sqrt{(\gamma + 2 \pi ik)^2 + \kappa_j^2}
+\end{equation}
+
+In each finite layer there are two fundamental modes corresponding to
+the sign in (\ref{wavefun}), while there is only one mode in the semi
+infinite layers. The sign is chosen such that the energy decays away
+from the structure.
+
+Inside the grating layer the wave number is a function of x and z, and
+therfore the solutions can no longer be expressed in closed form and
+must be determined numerically. The solution for the grating layer
+must also be coupled with the analytical solution in the uniform
+layers.
+
+The fundamental transverse mode must satisfy the periodic condition
 
 \begin{equation}
 u(x,z + \Lambda) = e^{\gamma \Lambda} u(x,z),
