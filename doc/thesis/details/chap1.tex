@@ -299,6 +299,11 @@ where $v$ is periodic in z.
 Substituting $u$ in (\ref{solutionHelmholtz}) into the Helmholtz
 equation (\ref{HelmholtzEq2}) results in
 
+\begin{equation}
+\triangle v + 2 \gamma v_z + (\gamma^2 + \kappa^2)v = 0
+\label{HelmholtzPDE}
+\end{equation}
+
 Because of periodicity, (\ref{HelmholtzPDE}) can be solved in the unit
 strip $\mathbf{R} x [0,1]$ with periodic boundary conditions. The
 problem is to find the characteristic values of $\gamma$ for which
@@ -319,6 +324,7 @@ dispersion relation
 
 \begin{equation}
 \gamma_k^j = \sqrt{(\gamma + 2 \pi ik)^2 + \kappa_j^2}
+\label{DispRel}
 \end{equation}
 
 In each finite layer there are two fundamental modes corresponding to
@@ -330,7 +336,96 @@ Inside the grating layer the wave number is a function of x and z, and
 therfore the solutions can no longer be expressed in closed form and
 must be determined numerically. The solution for the grating layer
 must also be coupled with the analytical solution in the uniform
-layers.
+layers. The solution for the grating layer must be coupled with the
+analytical solution in the uniform layers.
+
+Assume that for the interior problem
+
+\begin{equation}
+\triangle v + 2 \gamma v_z + (\gamma^2 + \kappa^2)v = 0 in D_0 \\
+v = f_\pm on S_\pm \\
+v periodic in z
+\label{HelmholtzPDEInt}
+\end{equation}
+
+is uniquely solvable. Then a pair of functions $f_\pm$ maps on the
+normal derivates $\partial{v_\pm}/\partial{n}$ of the solution to
+(\ref{HelmholtzPDEInt}) restricted to $S_+$ and $S_-$. For $\gamma$
+fixed this is the Dirichlet-to-Neumann (D2N) operator which will be
+denoted by $T_{int}(\gamma)$.
+
+Similarly, the exterior problems
+
+\begin{equation}
+\triangle v + 2 \gamma v_z + (\gamma^2 + \kappa^2)v = 0 in D_\pm \\
+v = f_\pm on S_\pm \\
+v periodic in z
+\label{HelmholtzPDEExt}
+\end{equation}
+
+gives rise to a D2N map which is denoted by $T_{ext}(\gamma)$. The
+numerical method used to determine the characteristic values of the
+full problem (\ref{HelmholtzPDE}) is based on the following:
+
+Suppose $\gamma$ is such that the interior and exterior problems are
+uniquely solvable. Then $\gamma$ is a characteristic value of
+(\ref{HelmholzPDE}) if and only if $T(\gamma) \coloneqq
+T_{int}(\gamma)- T_{ext}(\gamma)$ is singular.
+
+Instead of solving (\ref{HelmholzPDE}) directly, the numerical method
+is based on finding the singular vvalues of the D2N-map
+$T(\gamma)$. This is a non-linear eigenvalue problem in a vector space
+of functions on the interfaces $S_\pm$.
+
+Functions on the interfaces can be expanded in terms of Fourier modes
+
+\begin{equation}
+e_k^\pm (z) = \left \{ \begin{array} {ll}
+e^{(2 \pi i k z)}, \quad \textrm{on} \; S_\pm, \\
+0 \quad \; \textrm{on} S_\pm, \end{array} \right .
+\quad k \in \mathbf{Z}.
+\label{FourierInt}
+\end{equation}
+
+In this basic the exterior D2N-map is a diagonal operator
+
+\begin{equation}
+T_{ext}(\gamma) e_k^\pm = i s_k^\pm \gamma_k^\pm e_k^\pm,
+\quad k \in \mathbf{Z}.
+\end{equation}
+
+where $\gamma_k^+$ and $\gamma_k^-$ follow from the dispersion
+relation (\ref{DispRel}) and $s_k^\pm$ is the sign of the solution
+(\ref{wavefun}) for the infinite layer.
+
+Since there is a non-uniform layer in the domain $D_0$, the Fourier
+modes of the interior D2N-map are coupled and therefore
+$T_{int}(\gamma)$ is not a diagonal operator in basis
+(\ref{FourierInt}). The coefficients of $T_{int}(\gamma)$ must be
+determined by first solving the interior problem (\ref{}) with
+boundary condition $f_\pm = e_k^\pm$ and then calculating the Fourier
+coefficients of the solution $v_k^\pm$, i.e.,
+
+\begin{equation}
+T_{int}(\gamma)_{l^\pm,k^\pm} = (e_l^\pm, \frac{\partial{v_k^\pm}
+{\partial{n}}), k,l \in \mathbf{Z}
+\end{equation}
+
+In order to calculate the Floquet multipliers numerically, two
+discretizations are necessary. First, only Fourier modes of order $|k|
+\leq p$ are used to approximate the D2N maps. The truncation can be
+regarded as Galerkin discretization of $T(\gamma)v = 0$ using the
+Fourier modes up to a certain order as the trial- and test
+space. Solving the interior problem numerically involves a second
+discretization step for which a large number of options are available.
+We have used Finite Element Method as one of the options.
+
+\subsubsection{Matrix-Newton Solver}
+After discretizing the D2N operators the problem on the interfaces
+reduces to a matrix problem of size $4p+2$. The matrix entries depend
+nonlinearly on the Floquet multiplier $\gamma$ and the problem is to 
+find $\gamma$ such that $T(\gamma)$ is singular.
+
 
 The fundamental transverse mode must satisfy the periodic condition
 
