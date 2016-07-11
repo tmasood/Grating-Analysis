@@ -407,7 +407,7 @@ boundary condition $f_\pm = e_k^\pm$ and then calculating the Fourier
 coefficients of the solution $v_k^\pm$, i.e.,
 
 \begin{equation}
-T_{int}(\gamma)_{l^\pm,k^\pm} = (e_l^\pm, \frac{\partial{v_k^\pm}
+T_{int}(\gamma)_{l^\pm,k^\pm} = (e_l^\pm, \frac{\partial{v_k^\pm}}
 {\partial{n}}), k,l \in \mathbf{Z}
 \end{equation}
 
@@ -424,7 +424,37 @@ We have used Finite Element Method as one of the options.
 After discretizing the D2N operators the problem on the interfaces
 reduces to a matrix problem of size $4p+2$. The matrix entries depend
 nonlinearly on the Floquet multiplier $\gamma$ and the problem is to 
-find $\gamma$ such that $T(\gamma)$ is singular.
+find $\gamma$ such that $T(\gamma)$ is singular. In principle, this 
+problem can be rewritten as $det T(\gamma) = 0$ and solved with the
+Newton method, but the iteration can be slow, specially near Bragg
+conditions where solution branches intersect or nearly intersect.
+
+Instead of dealing with the determinant, consider the truncated Taylor
+expansion of the D2N operator
+
+\begin{equation}
+T_m(\sigma) = \bar{T}_0 + \sigma \bar{T}_1 + ... + \sigma^m \bar{T}_m,
+\label{TaylorExpansion}
+\end{equation}
+
+where $\gamma = \bar{\gamma} + \sigma$ and
+
+\begin{equation}
+T_l = \frac{1}{l!} \frac{\partial^l}{\partial{\gamma^l}} T(\bar{\gamma}),
+\quad l = 0, ...,m.
+\end{equation}
+
+For the current iterate $\bar{\gamma}$, the next iterate is determined
+from the smallest value (in modulus) of $\sigma$ that makes matrix
+polynomial (\ref{TaylorExpansion}) singular. For that, write
+
+\begin{equation}
+\bar{T}_m(\sigma) = \sigma^m \bar{T}_0 S_m (\frac{1}{\sigma}),
+\end{equation}
+
+
+
+
 
 
 The fundamental transverse mode must satisfy the periodic condition
