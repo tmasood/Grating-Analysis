@@ -15,6 +15,8 @@
 #include <fstream>
 #include <sstream>
 #include <complex>
+#include <cstdlib>
+
 #include "grating.h"
 #include "gtoothpnl.h"
 #include "layer.h"
@@ -22,46 +24,94 @@
 
 using namespace std;
 
+int domainnr(double x, double z, double *alf, structure *epiptr,
+	     grating *gratptr);
+int calcp(gtpanel *p, double *x, complex<double> kappa, int ornt,
+           complex<double> *ptl);
+
+extern double EPS;
+
 // for a given point (x,z) in the interior domain, calculate the
 // solution (=field value) using Green's representation theorem.
 // The solution on the interfaces must be calculated by calcRhsInt()
 
-complex<double> calcsolint( panel* pnls, domain *dmns, double x, double z)
+complex<double> calcsolint( gtpanel *pnls, gtdomain *dmns, double x,
+			    double z, complex<double> lambda,
+			    complex<double> *rhs, complex<double> **sol0t,
+			    structure *epiptr, grating *gratptr)
 {
   int k, j, i0, i1;
-  domain *dmn;
-  panel *pnl;
-  double xC[2], alf, inner;
-  Complex ptl[2], u, factor=0.25*imagI;
+  int pnlidxu, pnlidxv;
+  int npnls;
+  int type;
 
-  xC[0] = x;  xC[1] = z;
-  k = domainNr( x, z, &alf );
-  if ( k==0 ) {
-    printf("\n (%lf %lf) is not in the interior domain\n", x, z);
-    exit(1);
-  }
+  gtdomain *dmn;
+  gtpanel *pnl;
+  double xc[2], alf, inner;
+  double *xcoll, *nrm;
+
+  complex<double> I;
+  complex<double> ptl[2], u, factor;
+  complex<double> kappa;
+  complex<double> *sol0;
+
+  I = complex<double>(0.0, 1.0);
+
+  sol0 = *sol0t;
+
+  factor=0.25*I;
+  xc[0] = x;  xc[1] = z;
+  k = domainnr(x, z, &alf, epiptr, gratptr);
+
+  if (k == 0)
+    {
+      printf("\n (%lf %lf) is not in the interior domain\n", x, z);
+      exit(1);
+    }
+
   factor *= 1.0/alf;
   
-  for ( dmn=dmns, j=1; j<k; j++ ) dmn = dmn->next;
+  for (dmn=dmns, j=1; j<k; j++)
+    {
+      dmn = dmn->nextptr;
+    }
 
-  for ( u=0.0, j=0; j<dmn->nPnls; j++ ) {
-    pnl = &(pnls[dmn->pnls[j]]);
-    i0 = pnl->idxU;
-    i1 = pnl->idxV;
-    calcp( pnl, xC, dmn->kappa, dmn->ornt[j], ptl);
-    /* this is to cancel the self-term if there is one */
-    inner = (x - pnl->xColl[0])*pnl->nrm[0] + (z - pnl->xColl[1])*pnl->nrm[1];
-    if ( fabs(inner) < EPS ) ptl[1] = 0.0;
+  npnls = dmn->getnpanels();
 
-    if ( pnl->type <= 1 ) {
-      u += dmn->ornt[j]*ptl[0]*Sol0[i1] - ptl[1]*Sol0[i0];
+  for (u=0.0, j=0; j<npnls; j++)
+    {
+      pnl = &(pnls[dmn->indp[j]]);
+      pnlidxu = pnl->getidxu();
+      pnlidxv = pnl->getidxv();
+      i0 = pnlidxu;
+      i1 = pnlidxv;
+      kappa = dmn->getkap();
+
+      calcp(pnl, xc, kappa, dmn->ornt[j], ptl);
+
+      xcoll = pnl->getxcoll();
+      nrm = pnl->getnrm();
+
+      // this is to cancel the self-term if there is one
+      inner = (x - xcoll[0])*nrm[0] +
+	(z - xcoll[1])*nrm[1];
+
+      if (fabs(inner) < EPS)
+	ptl[1] = 0.0;
+
+      type = pnl->gettype();
+      if (type <= 1)
+	{
+	  u += double(dmn->ornt[j])*ptl[0]*sol0[i1] - ptl[1]*sol0[i0];
+	}
+      else if (type == 2)
+	{
+	  u -= lambda*( ptl[0]*sol0[i1] + ptl[1]*sol0[i0]);
+	}
+      else
+	{
+	  u += ptl[0]*sol0[i1] - ptl[1]*rhs[i1];
+	}
     }
-    else if ( pnl->type == 2 ) {
-      u -= lambda*( ptl[0]*Sol0[i1] + ptl[1]*Sol0[i0]);
-    }
-    else {
-      u += ptl[0]*Sol0[i1] - ptl[1]*Rhs[i1] ;
-    }
-  }
   return factor*u;
-} /* calcSolInt */
+}

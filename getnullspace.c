@@ -1,6 +1,6 @@
 //
-//  Copyright 2015 Quantum Designs LLC, Taha Masood, Johannes Tausch
-//  and Jerome Butler
+//  Copyright 2015, 2016 Quantum Designs LLC, Taha Masood, Johannes
+//  Tausch, Gary Evans and Jerome Butler
 //
 //  Permission to use, copy, and distribute this software and its
 //  documentation for any purpose with or without fee is hereby granted,
@@ -16,6 +16,10 @@
 #include <cstdlib>
 
 using namespace std;
+
+// zgesvd computes the singular value decomposition (SVD) of a 
+// complex M-by-N matrix A. The SVD is written as
+// A = U* SIGMA * conjugate-transpose(V)
 
 extern "C" {
 // SVD. Note that the routine returns v**h, not v
@@ -39,26 +43,38 @@ complex<double> **getnullspace(int order, int *dimnp, complex<double> *t,
   complex<double> **mat;
 
   // don't calc left sing vects, write right ones into T
+  // jobu = 'N': no columns of u (no left singular vectors) are computed
+  // jobvt = 'O': the first min(m,n) rows of v**h (the right singular
+  // vectors) are overwritten on the array A
   char jobu='N', jobvt='O';  
 
-  // number of rows of a
+  // number of columns of the input matrix 't'
   int n = (4*order+2);
-  // number of columns of a
+  // number of rows of input matrix 't'
   int m = n;
+
   // matrices u, vt                
+  // if jobu='N' output matrix u is not referenced
+  // if jobvt='O' output matrix vt is not referenced
   complex<double> *u=NULL, *vt=NULL;
-  // leading dimensions of a, u, vt
+
+  // leading dimensions of array a, u, vt
   int lda, ldu, ldvt;       
 
-  // singular values of a, sorted in descending order
+  // singular values of matrix 'a', sorted in descending order
+  // (S[i] >= S[i+1])
   double *sing;
 
-  // workspace
+  // workspace (output). 
   complex<double> *work;
-  // workspace   
+
+  // workspace
   double *rwork; 
-  // size of work, rwork           
+
+  // the dimension (input)  of the array work and rwork
+  // For good performance lwork should be larger
   int lwork=10*n;
+
   // return flag, if zero successful exit
   int info;
 

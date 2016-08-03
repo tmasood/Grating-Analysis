@@ -1,5 +1,5 @@
 //
-//  Copyright 2015 Quantum Designs LLC, Taha Masood, Johannes Tausch
+//  Copyright 2015, 2016 Quantum Designs LLC, Taha Masood, Johannes Tausch
 //  and Jerome Butler
 //
 //  Permission to use, copy, and distribute this software and its

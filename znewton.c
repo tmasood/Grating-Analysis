@@ -21,7 +21,7 @@
 using namespace std;
 
 const int ITMAX = 50;
-const double EPS = 1.0e-10;
+extern const double EPS;
 
 matnew newtoncharmatrix(complex<double> *newzg, structure *epiptr);
 

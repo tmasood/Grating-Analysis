@@ -1,5 +1,5 @@
 //
-//  Copyright 2015 Quantum Designs LLC, Taha Masood, Johannes Tausch
+//  Copyright 2015, 2016 Quantum Designs LLC, Taha Masood, Johannes Tausch
 //  and Jerome Butler
 //
 //  Permission to use, copy, and distribute this software and its
@@ -19,8 +19,19 @@
 #include "gtoothpnl.h"
 #include "layer.h"
 #include "structure.h"
+#include "gtoothdmn.h"
 
 using namespace std;
+
+extern int calcrhsint(int order, int nrows, int npnls,
+		      complex<double> *ns, complex<double> *rhs,
+		      complex<double> **sol0t, grating *gratptr);
+
+extern complex<double> calcsolint( gtpanel *pnls, gtdomain *dmns, double x,
+				   double z, complex<double> lambda,
+				   complex<double> *rhs,
+				   complex<double> **sol0t,structure *epiptr,
+				   grating *gratptr);
 
 // Compute the solution in the interior domain and dump the results
 // in two files, one for the real, the other for the imaginary part
@@ -33,15 +44,20 @@ using namespace std;
 //      NS       vector in nullspace of DtN operator (left and right side)
 
 void printsolint(int order, int nptsx, int nptsz, int npnls, int nrows, 
-		 domain *dmns, gtpanel *pnls, complex<double> *ns,
+		 gtdomain *dmns, gtpanel *pnls, complex<double> *ns,
+		 complex<double> *rhs, complex<double> **sol0t,
+		 complex<double> lambda, structure *epiptr,
 		 grating *gratptr)
 {
   int i, j;
   int ord2;
   int ord4;
   double x, z, x0int, x1int, dx, dz;
+  double period;
+  double *x0;
   complex<double> u;
-  panel *pnl;
+  gtpanel *pnl;
+  int pnltype;
   char fnam[50]; 
   ofstream fpre, fpim;
 
@@ -73,13 +89,15 @@ void printsolint(int order, int nptsx, int nptsz, int npnls, int nrows,
     }
 
   dx = (x1int - x0int)/nptsx;
-  dz = gratingperiod/nptsz;
+  period = gratptr->getperiod();
+  dz = period/nptsz;
 
   for (j=0, z=0.0; j<=nptsz; j++, z+=dz)
     {
       for (i=0, x=x0int; i<=nptsx; i++, x+=dx)
 	{
-	  u = calcsolint( pnls, dmns, x, z);
+	  u = calcsolint(pnls, dmns, x, z, lambda, rhs, sol0t, epiptr,
+			 gratptr);
 	  fpre << real(u) << " ";
 	  fpim << imag(u) << " ";
 	}
@@ -87,6 +105,6 @@ void printsolint(int order, int nptsx, int nptsz, int npnls, int nrows,
       fpim << endl;
     }
   
-  fpre.close(fpre);
-  fpim.close(fpim);
+  fpre.close();
+  fpim.close();
 }
