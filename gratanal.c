@@ -1,5 +1,6 @@
 //
-//  Copyright 2015  Taha Masood, Johannes Tausch, Jerome Butler and Gary Evans
+//  Copyright 2015, 2016  Taha Masood, Johannes Tausch, Jerome Butler
+//  and Gary Evans
 //
 //  Permission to use, copy, and distribute this software and its
 //  documentation for any purpose with or without fee is hereby granted,
@@ -56,6 +57,12 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 		  structure *epiptr, int *sheetsleft, int *sheetsright,
 		  complex<double> *sol0);
 
+void printsolint(int order, int nptsx, int nptsz, int npnls, int nrows, 
+		 gtdomain *dmns, gtpanel *pnls, complex<double> *ns,
+		 complex<double> *rhs, complex<double> **sol0t,
+		 complex<double> lambda, structure *epiptr,
+		 grating *gratptr);
+
 extern "C" {
   // LU factorization
   void  zgetrf_(int *nrow, int *ncol, complex<double> *a, int *lda,
@@ -80,6 +87,8 @@ extern "C" {
 #define ARRAYSIZE 512
 #define MAXITER 40
 
+double EPS = 1.0e-10;
+
 int main(int argc, char *argv[])
 {
   structure *epiptr;
@@ -87,6 +96,7 @@ int main(int argc, char *argv[])
   ssystem *sysptr;
 
   gtpanel *pnls;
+  gtdomain *dmns;
 
   string st;
   string gs;
@@ -366,7 +376,9 @@ int main(int argc, char *argv[])
 		  extd2nright, gratptr, epiptr, sheetsleft,
 		  sheetsright, sol0tmp);
 
-  //      printsolint(order, 10, 4000, nPanels, nRows, dmns, pnls, NS[0]);
+  dmns = gratptr->gtdmnptr;
+  printsolint(order, 10, 4000, npanels, nrows, dmns, pnls, ns[0],
+  	      rhstmp, &sol0tmp, lambda, epiptr, gratptr);
 
   //  tSolution();
   //  testSol(order, nRows, dmns, nPanels, pnls, NS[0]);
