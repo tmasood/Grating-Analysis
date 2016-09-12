@@ -1,0 +1,26 @@
+
+
+Wavelength = 1.31 um
+Initial n_eff guess = (-4.74774e-06,3.22576)
+Structure type = GRAT
+Grating shape = RECT
+Grating Layer = 51
+Grating period = 0.4199 um
+Duty cycle = 0.5
+
+     n_eff                 condition           info 
+(-4.74774e-06,3.22576)         0.000819739         0
+(-3.16181e-07,3.23804)         2.12926e-05         0
+(-3.49125e-10,3.23839)         1.16844e-08         0
+(-3.74092e-16,3.23839)         3.52839e-15         0
+ 
+Unloaded structure n_eff = (1.46711e-16,3.23839)
+
+@condition = 4.76542e-11
+Loaded structure n_eff = (-0.000750025,3.22473)   loss = -35.9737/cm
+
+
+hello n 22  5
+ sing 1.31969e-08  21  1e-08
+ getnullspace(): trivial nullspace 
+
