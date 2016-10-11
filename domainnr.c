@@ -38,7 +38,7 @@ int domainnr(double x, double z, double *alf, structure *epiptr,
 	     grating *gratptr)
 {
   double thght;
-  double widthgrating;
+  double period;
 
   int gl;
   int layr;
@@ -56,18 +56,18 @@ int domainnr(double x, double z, double *alf, structure *epiptr,
     }
 
   thght = layptr->getlayerthickness();
-  widthgrating = gratptr->getperiod();
+  period = gratptr->getperiod();
 
   if ( fabs(x) < EPS ) *alf = 0.5;
   if ( fabs(x - thght) < EPS ) *alf = 0.5;
 
-  if ( fabs(z - (0.5*widthgrating)) < EPS ) *alf = 0.5;
+  if ( fabs(z - (0.5*period)) < EPS ) *alf = 0.5;
   if ( fabs(z) < EPS ) *alf = 0.5;
-  if ( fabs(z - widthgrating) < EPS ) *alf = 0.5;
+  if ( fabs(z - period) < EPS ) *alf = 0.5;
 
-  if ( x < -EPS ||  x > thght+EPS || z < -EPS || z > widthgrating+EPS )
+  if ( x < -EPS ||  x > thght+EPS || z < -EPS || z > period+EPS )
     return 0;
 
-  if ( z > 0.5*widthgrating ) return 1;
+  if ( z > 0.5*period ) return 1;
   return 2;
 }
