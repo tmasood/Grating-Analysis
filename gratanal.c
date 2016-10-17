@@ -29,6 +29,10 @@ int initsheets(int **sheetsleft, int **sheetsright, complex<double> gam,
 complex<double> znewton(structure *epiptr);
 int defpnl(structure *epiptr, grating *gratptr);
 int defdmn(structure *epiptr, grating *gratptr);
+int defpnlst(structure *epiptr, grating *gratptr);
+int defdmnst(structure *epiptr, grating *gratptr);
+int defpnlslt(structure *epiptr, grating *gratptr);
+int defdmnslt(structure *epiptr, grating *gratptr);
 int indxpnls(grating *gratptr, int *match);
 gtpanel *refinepnls(grating *gratptr, int *match);
 void gettannrm(grating *gratptr);
@@ -213,6 +217,22 @@ int main(int argc, char *argv[])
 	  // define domains
 	  status = defdmn(epiptr, gratptr);
 	}
+      else if (!gs.compare("SAWTOOTH"))
+	{
+	  initcalcp(qorder);
+	  // define panels
+	  status = defpnlst(epiptr, gratptr);
+	  // define domains
+	  status = defdmnst(epiptr, gratptr);
+	}
+      else if (!gs.compare("SLANTED"))
+	{
+	  initcalcp(qorder);
+	  // define panels
+	  status = defpnlslt(epiptr, gratptr);
+	  // define domains
+	  status = defdmnslt(epiptr, gratptr);
+	}
       else
 	{
 	  cout << "grating shape " << gs << " not recognized." << endl;
@@ -371,16 +391,21 @@ int main(int argc, char *argv[])
     }
 
   npanels = gratptr->gettotalpnls();
+
   printsolution(order, astart, aend, printsolnintvls, npanels, 
 		nrows, pnls, &(ns[0][0]), &(ns[0][ord2]), extd2nleft,
 		  extd2nright, gratptr, epiptr, sheetsleft,
 		  sheetsright, sol0tmp);
 
   dmns = gratptr->gtdmnptr;
+
+  cout << "before3" << endl;
+
   printsolint(order, 10, 4000, npanels, nrows, dmns, pnls, ns[0],
   	      rhstmp, &sol0tmp, lambda, epiptr, gratptr);
 
-  //  tSolution();
+  cout << "before4" << endl;
+
   //  testSol(order, nRows, dmns, nPanels, pnls, NS[0]);
 
 
