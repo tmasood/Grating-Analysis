@@ -1,0 +1,324 @@
+\documentclass{article}
+\title{User's Guide to the Floquet program}
+\author{Johannes Tausch}
+\begin{document}
+\maketitle
+
+\section{Installation}
+These instructions are for a UNIX system. It should be easy to get the
+code running under WINDOWS, but then you are on your own.
+Make sure you have LAPACK installed on your system, otherwise the code
+won't compile. 
+
+You also need the Bessel library. The library is a subset of the much
+larger SLATEC library, which can be downloaded from www.netlib.org.
+For convenience the the file \texttt{libbessel.tar.gz} is provided.
+Put this file in a separate directory,
+unzip and untar it using the commands\\
+\leftline{$\quad$\texttt{gzip -d libbessel.tar.gz}}
+\leftline{$\quad$\texttt{tar -xf libbessel.tar}} Next, type \texttt{make
+  libbessel.a} to compile the library. There might be some warnings
+about unrecognized options which are harmless. The result of the
+compilation should be the file \texttt{libbessel.a} which must be
+placed in a directory where the linker can find it.
+
+Next put the file \texttt{tar -xf floquet.tar.gz} in a separate
+directory, then unzip and untar it with the commands\\
+\leftline{$\quad$\texttt{gzip -d floquet.tar.gz}}
+\leftline{$\quad$\texttt{tar -xf floquet.tar}} Next, look at the
+\texttt{Makefile}, and make the appropriate changes.  It may be
+necessary to specify the path and name of the LAPACK and the bessel
+libraries, the C compiler (must be gcc), the linker (must be g77) and
+the name of the geometry description file that you want to link with
+the code. In most cases, this should be pretty straight forward to do.
+In the package are the geometry files of four example structures.
+There are also shell scripts that show the command line options.
+
+\section{Basic Usage via Command Line Options}
+This is a list of command line options. It is important to put an
+equal sign between the option and its value, e.g. \texttt{-gr=0.005}
+and \emph{not} \texttt{-gr0.005}. If the parameter has a default
+then this value will be used, unless the parameter is
+specified in the command line. 
+
+\subsection{The most important parameters}
+\begin{itemize}
+  \item[\texttt{-L}] Grating period.
+  \item[\texttt{-W}] Width of the interior region (typically, the
+  tooth height of the grating). 
+  \item[\texttt{-d}] Length of the largest panel in the discretization
+  of the interior problem. Decreasing this value will increase the
+  numerical accuracy but slow things down at the same time 
+  (default \texttt{-dx=0.05}).
+  \item[\texttt{-p}] Number of space harmonics outside the grating region.
+  (default \texttt{-p=3}). Increase this value if more accuracy is
+  required, at the same time decrease the meshwidth with the
+  \texttt{-d} option. 
+  \item[\texttt{-gr}] Initial guess of the propagation constant, real
+  part. Note that this is the attenuation factor (no default value).
+  \item[\texttt{-gr}] Initial guess of the propagation constant, imaginary
+  part (no default value).
+  \item[\texttt{-k}] Frequency $\omega$. 
+\end{itemize}
+The grating period and the grating width are the dimensions of the
+rectangle in the $xz$-plane that is the interior region. If these
+parameters are fixed, they can also be defined in the geometry file.
+In this case the command line options will be ignored.
+
+\subsection{Parameters for controlling the output.}
+Normally the code displays only the basic input characters and the
+calculated propagation constant. If the verbosity level \texttt{-v} is
+increased, then the iteration history and the transverse wave numbers
+in the infinite regions are printed. 
+
+There are two ways in which the mode is displayed. One is to give a
+'cross section' of the mode for $z=0$ as a function of $x$. The data
+is stored in the file \texttt{sol.<omega>.<beta>} in in the format 
+x-value  Re(u(x,0))  Im(u(x,0)). The other way is to print the real
+and imaginary parts of the mode $u(x,z)$ in the interior region on a
+uniform mesh. This information is stored in the files 
+\texttt{solRe.<omega>.<beta>} and \texttt{solIm.<omega>.<beta>}. Both
+types of files can be loaded into Matlab and displayed graphically.
+\begin{itemize}
+  \item[\texttt{-v}] Level of verbosity; \texttt{-v=0} to suppress all
+  output except for the final propagation constant. A nonzero value
+  prints iteration history, transverse wave numbers in the infinite
+  regions, etc (default \texttt{-v=0}).
+  \item[\texttt{-a0}] Left endpoints of the $x$-interval in which a
+  cross section of the mode for $z=0$ is generated. The data is stored
+  in a \texttt{sol} file. The endpoint should be in an infinite layer.
+  If the parameter is not given then the \texttt{sol}-file is not generated. 
+  \item[\texttt{-a1}] Right endpoint, should be in an infinite layer. 
+\item[\texttt{-N}] Number of points in a \texttt{sol}-file at which
+  the solution is printed.   (default \texttt{-N=200}).
+\item[\texttt{-Nx}] Number of points in a \texttt{solRe/Im}-file in
+  $x$-direction.
+\item[\texttt{-Nz}] Number of points in a \texttt{solRe/Im}-file in
+  $z$-direction. If both \texttt{Nx} and \texttt{Nz} are not given
+  then no output is generated. If one of the two is missing, it will
+  be set equal to the given one.
+\end{itemize}
+
+\subsection{Parameters that normally do not need to be specified.}
+
+This is a list of parameters where the default value usually gives the
+desired results.
+\begin{itemize}
+  \item[\texttt{-q}] Order of the quadrature rule used for the
+  computation of the BEM matrix in the interior problem. Must be
+  between 2 and 12 (default \texttt{-q=3}).
+  \item[\texttt{-M}] Maximal number of iterations of nonlinear solver (default
+  \texttt{-M=20}).
+  \item[\texttt{-E}] Tolerance of the nonlinear solver (default
+  \texttt{-E=1e-9}).
+\end{itemize}
+
+
+\section{How to Write Your Own geom File} 
+The best way to learn it is to look at the provided geometry files;
+however, some proficiency in C-programming is required. The best
+starting point is the file \texttt{geomSimple.c} which describes a
+simple guide with a core, and a superstrate and substrate, as shown in
+the figure in the comment section of the file.
+
+Every geometry file contains the subroutine \texttt{initExterior()}
+which describes the uniform layers and the the subroutine
+\texttt{initInterior()} which describes the interior (or grating)
+region. Finally, it contains the routine \texttt{domainNr()} which is
+only necessary if plots of the interior solution are to be generated.
+
+\subsection{Exterior Regions.} The routine \texttt{initExterior()}
+initializes the following global variables 
+\begin{itemize}
+\item[] \texttt{nTrnsRight} number of
+translation operators on the right of the grating region. Every finite
+uniform layer has a translation operator.
+\item[] \texttt{nTrnsLeft}  number of
+translation operators on the left of the grating region.
+\item[] \texttt{kapRight[], kapLeft[]} The wave numbers of the
+  layers. Note that we start counting with 1 beginning from the
+  grating region towards the infinite region.  \texttt{kapRight[0]} and
+  \texttt{kapLeft[0]} are the wave numbers of the infinite regions.
+\item[] \texttt{wRight[], wLeft[]} are the widths of the 
+  layers. The numbering scheme is the same as for the wave numbers. 
+  \texttt{wRight[0]} and \texttt{wLeft[0]} are not used.
+\end{itemize} 
+It is important to allocate all arrays. 
+
+
+\subsection{Interior Region} 
+The geometry description happens in the
+routine \texttt{initInterior()}. More specifically, this routine sets up
+a linked list of \texttt{domain}-structures and a linked list of
+\texttt{pnlLst}-structures.  
+The interior domain is a rectangle in the $xz$-plane. The lower left
+corner is the origin $(0,0)$ the upper right corner is given by the
+variables (\texttt{widthGrating},\texttt{gratingPeriod}). These
+variables are either initialized with the \texttt{-W} and \texttt{-L}
+command line options or initialized in \texttt{initInterior()}, in
+which case the command line options are ignored. 
+
+The interior region is divided into domains with constant index.
+There is one \texttt{domain}-structure for every domain The domains are
+bounded by straight panels, but can have arbitrary shape otherwise.
+Also, the number of domains is arbitrary, this allows for gratings
+that are etched through several layers. The following members of the
+\texttt{domain}-structure must be initialized in
+\texttt{initInterior()}.
+\begin{itemize}
+\item[]\texttt{kappa} wave number (=index times frequency)
+\item[]\texttt{nPnls} number of panels that describe the boundary of
+  the domain. 
+\item[]\texttt{pnls[]} Array of the indices of boundary panels. The
+  indices are counted from zero and refer to the position in the
+  linked list of panels described below. If the normal of a type-1
+  panel (explanation below!) points into the domain then the index
+  gets a 'minus' sign. Note that the array must be
+  allocated before it is written.
+\item[]\texttt{next} Pointer to the next domain in the linked list. If
+  the pointer is \texttt{NULL} then this is interpreted as the end of
+  the list of domains.
+\end{itemize}
+
+There is one \texttt{pnlLst}-structure for every panel. The members
+that must be initialized in \texttt{initInterior()} follow
+\begin{itemize}
+\item[]\texttt{type} The type of the panel. There are five types:
+\begin{itemize}
+  \item[]\texttt{type=0} Panel is on the boundary $z=0$ of the rectangle.
+  \item[]\texttt{type=1} Panel is in the interior of the rectangle.
+  \item[]\texttt{type=2} Panel is on the boundary \texttt{z=gratingPeriod}.
+  \item[]\texttt{type=3} Panel is in the boundary $x=0$.
+  \item[]\texttt{type=4} Panel is in the boundary \texttt{x=widthGrating}.
+\end{itemize}
+\item[]\texttt{x0[]} $x$- and $z$- coordinates of the first end point.
+\item[]\texttt{x1[]} $x$- and $z$- coordinates of the second end
+  point. The normal points into the left of the panel as we go from
+  the first to the second end point.
+\item[]\texttt{next} Pointer to the next panel in the linked list. If
+  the pointer is \texttt{NULL} then this is interpreted as the end of
+  the list.
+\end{itemize}
+It is important that the type-0 and type-2 panels are in one-to-one
+correspondence, i.e., the discretization of the lower and upper side
+of the rectangle should be identical. Also, keep in
+mind that the panels described in \texttt{initInterior()} are not the
+panels used for the discretization. Instead, the program refines the
+panels automatically such that every refined panel is no longer than
+the value given by the command line option \texttt{-d}. Therefore it
+is better to describe the geometry with as few panels as possible.
+
+\subsection{A Simple Example}
+To illustrate the geometry description files consider the waveguide
+shown in Figure~\ref{fig-domain} which is implemented by
+\texttt{geomSimple.c}. 
+
+\begin{figure}[htb]
+\begin{center}
+\setlength{\unitlength}{2cm}
+\begin{picture}(5,3)
+\put(5.1,0.5){\vector(1,0){0.5}}   % arrows for directions
+\put(5.22,0.25){$x$}
+\put(3,2.7){\vector(0,1){0.25}}
+\put(3.15,2.88){$z$}
+\put(0,0.5){\line(1,0){5}}         % horizontal lines
+\put(0,1.5){\line(1,0){5}}
+\put(0,2.5){\line(1,0){5}}
+\thicklines
+\put(2,0.4){\line(0,1){2.2}}
+\put(3.5,0.4){\line(0,1){0.1}}    % grating layer boundaries
+\put(3,1){\line(0,1){0.5}}
+\put(3.5,0.5){\line(0,1){0.5}}
+\put(3,2){\line(0,1){0.5}}
+\put(3.5,1.5){\line(0,1){0.5}}
+\put(3,2.5){\line(0,1){0.1}}
+\put(3,0.5){\line(1,0){0.5}}
+\put(3,1){\line(1,0){0.5}}
+\put(3,1.5){\line(1,0){0.5}}
+\put(3,2){\line(1,0){0.5}}
+%\put(3,2.5){\line(1,0){0.5}}
+\put(1.4,0.95){$\Omega_1$}
+\put(2.5,0.95){$\Omega_2$}
+\put(4.1,0.95){$\Omega_3$}
+\put(2.95,0.25){$0$}
+\put(3.45,0.25){$w$}
+\put(1.5,0.1){$\mathbf{\vdots}$}  % continuation signs
+\put(1.5,2.8){$\mathbf{\vdots}$}
+\end{picture}
+\end{center}
+\caption{The guide described in \texttt{geomSimple.c}}
+\label{fig-domain}
+\end{figure}
+
+This example consists of the core with grating, a sub- and a
+superstrate. The interior region is the rectangle
+$[0,w]\times[0,\Lambda]$ in the $xz$-plane.  
+
+Let's first have a closer look at the routine \texttt{initExterior()}.
+The right exterior region is air, therefore there is no translation
+operator in the right region and \texttt{nTrnsRight=0}. The left side
+has one finite layer, which amounts to one translation operator,
+\texttt{nTrnsLeft=1}. The width and wavenumber are specified as
+\texttt{wLeft[1] = 0.6366198} and \texttt{kapLeft[1] = omega*K2}. The
+wavenumber in the infinite layers are specified as \texttt{kapLeft[0]
+  = omega*K1} and \texttt{kapRight[0] = omega*K3}. The widths
+\texttt{wLeft[0] = wRight[0] = 0.0} are never used and therefore set
+to zero. Note how the arrays are allocated.
+
+\begin{figure}[htb]
+\begin{center}
+{% Picture saved by xtexcad 2.4
+\unitlength=0.6000pt
+\begin{picture}(230.00,370.00)(0.00,0.00)
+\thicklines
+\put(210.00,350.00){\vector(-1,0){100.00}}
+\put(20.00,190.00){\vector(0,1){70.00}}
+\put(210.00,190.00){\vector(0,1){80.00}}
+\put(210.00,190.00){\vector(-1,0){100.00}}
+\put(20.00,20.00){\vector(0,1){90.00}}
+\put(210.00,20.00){\vector(0,1){90.00}}
+\put(20.00,20.00){\vector(1,0){100.00}}
+\put(210.00,190.00){\line(-1,0){190.00}}
+\put(210.00,350.00){\line(-1,0){190.00}}
+\put(210.00,20.00){\line(0,1){330.00}}
+\put(20.00,20.00){\line(1,0){190.00}}
+\put(20.00,350.00){\line(0,-1){330.00}}
+\put(110,190.00){\vector(0,-1){70.00}}
+\put(115,150.00){$n$}
+\put(0,102){$P_3$}
+\put(0,267){$P_4$}
+\put(220,102){$P_5$}
+\put(220,267){$P_6$}
+\put(110,0){$P_0$}
+\put(110,195){$P_2$}
+\put(110,355){$P_1$}
+\put(110,267){$\Omega_3$}
+\put(110,102){$\Omega_2$}
+\put(0,0){$(0,0)$}
+\put(215,355){$(w,\Lambda)$}
+\end{picture}}
+\end{center}
+\caption{The interior region of \texttt{geomSimple.c}}
+\label{fig-inner}
+\end{figure}
+
+The interior region is shown in Figure~\ref{fig-inner}. It consists of two
+domains $\Omega_2$, $\Omega_3$ which are bounded by seven panels
+$P_0,\dots, P_6$. The upper domain is bounded by the panels $P_2, P_4,
+P_1, P_6$, the lower one by $P_0,P_5,P_2,P_3$. Panel $P_0$ is type-0,
+panel $P_1$ is type-2, panel $P_2$ is type-1, panels $P_4$ and $P_5$
+are type-3, panels $P_6$ and $P_7$ are type-4.
+
+The orientation of the panels is indicated in the by figure by the
+arrows. The normal points into the left side of the panel, if the
+panel is traversed in its orientation, hence the normal of panel $P_2$
+points into the domain $\Omega_2$. This is why $P_2$ appears as '-2'
+in $\Omega_2$'s panel list. The orientation is only of concern for
+type-1 panels, therefore the other panels are listed as 'positive',
+even if their normal points into the domain.
+
+\end{document}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
