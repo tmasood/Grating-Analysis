@@ -43,10 +43,10 @@ int calcfc(grating *gratptr, structure *epiptr, int nrows,
   ord2 = (2 * order) + 1;
   ord4 = 2 * ord2;
 
-  for (jj = icol=0; jj < (pow(ord4,2.0)); icol += nrows, jj += ord4)
+  for (jj = icol = 0; jj < (pow(ord4,2.0)); icol += nrows, jj += ord4)
     {
       pnlptr = gratptr->gtrefpnlptr;
-      while (pnlptr != NULL)
+      while (pnlptr->nextptr != NULL)
 	{
 	  pnltype = pnlptr->gettype();
 	  if (pnltype > 2)
@@ -88,3 +88,4 @@ int calcfc(grating *gratptr, structure *epiptr, int nrows,
 
   return 0;
 }
+

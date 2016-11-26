@@ -33,6 +33,8 @@ int defpnlst(structure *epiptr, grating *gratptr);
 int defdmnst(structure *epiptr, grating *gratptr);
 int defpnlslt(structure *epiptr, grating *gratptr);
 int defdmnslt(structure *epiptr, grating *gratptr);
+int defpnlwg(structure *epiptr, grating *gratptr);
+int defdmnwg(structure *epiptr, grating *gratptr);
 int indxpnls(grating *gratptr, int *match);
 gtpanel *refinepnls(grating *gratptr, int *match);
 void gettannrm(grating *gratptr);
@@ -172,7 +174,7 @@ int main(int argc, char *argv[])
   lambda = 1.0;
   qorder = 3;
 
-  astart = -1.0;
+  astart = -2.0;
   aend = 2.0;
 
   nrm = 'I';
@@ -233,6 +235,14 @@ int main(int argc, char *argv[])
 	  // define domains
 	  status = defdmnslt(epiptr, gratptr);
 	}
+      else if (!gs.compare("WG"))
+	{
+	  initcalcp(qorder);
+	  // define panels
+	  status = defpnlwg(epiptr, gratptr);
+	  // define domains
+	  status = defdmnwg(epiptr, gratptr);
+	}
       else
 	{
 	  cout << "grating shape " << gs << " not recognized." << endl;
@@ -251,6 +261,7 @@ int main(int argc, char *argv[])
       epiptr->setbetaguess(gam);
       period = gratptr->getperiod();
       lambda = exp(gam*period);
+      cout << "lambda = " << lambda << "\n";
 
       order = gratptr->getssspchrmncs();
       ord2 = (2 * order) + 1;
@@ -267,12 +278,14 @@ int main(int argc, char *argv[])
       pvt = new int[ord4];
       vr = new complex<double>[ord4];
       vl = new complex<double>[ord4];
+
+      initsheets(&sheetsleft, &sheetsright, gam, gratptr, epiptr);
       
       while (loopcnt < MAXITER)
 	{
 	  calcmoments(epiptr, gratptr, nrows, &lambda, &atmp, &sol0tmp,
 		      &sol1tmp, &rhstmp,&a1tmp, &btmp, &mom, &ipv);
-	  initsheets(&sheetsleft, &sheetsright, gam, gratptr, epiptr);
+
 	  subext(mom, &extd2nleft, &extd2nright, epiptr, gratptr,
 		 sheetsleft, sheetsright);
 
@@ -286,8 +299,11 @@ int main(int argc, char *argv[])
 
 	  // compute the LU factorization of matrix mom[0]
 	  zgetrf_(&lda, &lda, mom[0], &lda, pvt, &info);
+
 	  // estimate the reciprocal of the condition number of matrix mom[0]
 	  zgecon_(&nrm, &lda, mom[0], &lda, &anorm, &rcond, wrk, rwrk, &info);
+
+	  cout << "condition = " << rcond << "\n";
 	  if (rcond < nltol) break;
 
 	  // solve the system of linear equation with a general matrix mom[0]
@@ -303,6 +319,7 @@ int main(int argc, char *argv[])
 
 	  gam = nextgam(order, eigval, gam, sheetsleft, sheetsright,
 			epiptr, gratptr);
+	  cout << "gam = " << gam << "\n";
 	  epiptr->setbetaguess(gam);
 	  ko = epiptr->getko();
 	  period = gratptr->getperiod();
@@ -399,12 +416,8 @@ int main(int argc, char *argv[])
 
   dmns = gratptr->gtdmnptr;
 
-  cout << "before3" << endl;
-
   printsolint(order, 10, 4000, npanels, nrows, dmns, pnls, ns[0],
   	      rhstmp, &sol0tmp, lambda, epiptr, gratptr);
-
-  cout << "before4" << endl;
 
   //  testSol(order, nRows, dmns, nPanels, pnls, NS[0]);
 

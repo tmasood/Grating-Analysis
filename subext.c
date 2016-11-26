@@ -114,7 +114,7 @@ int subext(complex<double> **mt, complex<double> **d2nleft,
       gright[0] = I*gkbr;
       gright[1] = I*tmp/gkbr;
 
-      if (gl > 0)
+      if ((gl-1) > 0)
         {
           translated2n(k, gleft, layleftptr, gl, epiptr, gratptr);
         }

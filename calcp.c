@@ -31,7 +31,7 @@ void zbesh_(double*, double*, double*, int*, int*, int*, double[],
 extern double *xleg, *xlog, *wlog, *wleg; // Gauss abscissas/weights
 extern int ordleg, ordlog;                // Gauss quadrature orders
 
-const double EPS = 1.0e-10;
+extern double EPS;
 
 // calculate potentials due a panel
 //

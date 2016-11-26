@@ -32,7 +32,7 @@ int dumpnls(grating *gratptr)
   pnlptr = gratptr->gtrefpnlptr;
   cout << endl;
   cout << "Refine panels " << endl;
-  while (pnlptr != NULL)
+  while (pnlptr->nextptr != NULL)
     {
       cout << endl;
       pnltype = pnlptr->gettype();

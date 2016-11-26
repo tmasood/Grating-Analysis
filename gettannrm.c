@@ -39,7 +39,7 @@ void gettannrm(grating *gratptr)
 
   pnlptr = gratptr->gtrefpnlptr;
 
-  for (i=0; pnlptr != NULL; pnlptr = pnlptr->nextptr, i++)
+  for (i=0; pnlptr->nextptr != NULL; pnlptr = pnlptr->nextptr, i++)
     {
       x1 = pnlptr->getx1();
       x0 = pnlptr->getx0();

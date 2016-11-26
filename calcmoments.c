@@ -108,13 +108,13 @@ int calcmoments(structure *epiptr, grating *gratptr, int nrows,
       gratptr->gzk[k+order] = gam + ((static_cast<double>(k)*twoPi)/period);
     }
 
-  // number of panels on type 3+4 surfaces == number of cols
-  // in matrix B
+  // number of refined panels on type 3 and 4 surfaces == number of
+  // cols in matrix B
   npnls = gratptr->gettotalpnls();
   pnlptr = gratptr->gtrefpnlptr;
   ncolsb = 0;
 
-  while (pnlptr != NULL)
+  while (pnlptr->nextptr != NULL)
     {
       pnltype = pnlptr->gettype();
       if (pnltype > 2)
@@ -156,11 +156,11 @@ int calcmoments(structure *epiptr, grating *gratptr, int nrows,
 	{
 	  a[i] = 0.0;
 	}
-      for (i=nrows*ncolsb-1; i>=0; i--)
+      for (i=(nrowcolsb-1); i>=0; i--)
 	{
 	  b[i] = 0.0;
 	}
-      for (i=((nrows*ord4)-1); i>=0; i--)
+      for (i=(nroword4-1); i>=0; i--)
 	{
 	  real(rhs[i]) = 0.0;
 	  imag(rhs[i]) = 0.0;
@@ -245,6 +245,7 @@ int calcmoments(structure *epiptr, grating *gratptr, int nrows,
 		      b[posu] -= ptl[1];
 		    }
 		}
+
 	    } // for panels
 	} // for collocPts
 
