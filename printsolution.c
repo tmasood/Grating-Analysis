@@ -66,6 +66,7 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
   complex<double> gam;
   complex<double> I;
   complex<double> kapleft, kapright;
+  complex<double> kapleft0, kapright0;
 
   layer *layleftptr, *layrightptr;
 
@@ -91,33 +92,60 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
   ntrnsleft = gratptr->getgl();
   ntrnsright = (epiptr->gettotallayers() - ntrnsleft - 2);
 
+  // ntrnsleft is one less than the grating layer
+  ntrnsleft--;  
+
   layleftptr = epiptr->layerptr;
+
+  indx_r = layleftptr->getlayerindex();
+  loss = layleftptr->getlayerloss();
+  // calculate imaginary part of index from loss
+  indx_i = ((loss * wvl)/(4 * M_PI * 10000));
+  kapleft = complex<double>(indx_r, indx_i);
+  kapleft *= omega;
+
+  // infinite layer left
+  kapleft0 = kapleft;
+
   for (i = 0; i < ntrnsleft; i++)
     {
       layleftptr = layleftptr->nextptr;
     }
-  
-  layrightptr = epiptr->layerptr;
+
+  layrightptr = epiptr->layerptr;  
   while (layrightptr->nextptr != NULL)
     {
       layrightptr = layrightptr->nextptr;
     }
+
+  indx_r = layrightptr->getlayerindex();
+  loss = layrightptr->getlayerloss();
+  // calculate imaginary part of index from loss
+  indx_i = ((loss * wvl)/(4 * M_PI * 10000));
+  kapright = complex<double>(indx_r, indx_i);
+  kapright *= omega;
+
+  // infinite layer right
+  kapright0 *= kapright;
 
   pnl = gratptr->gtrefpnlptr;
   // find the lower/upper bound of the interior interval
   for (i = 0; i < npnls; i++)
     {
       pnltype = pnl->gettype();
+      // grating period interfacing the left layer structure
       if (pnltype == 3)
 	{
 	  xx0 = pnl->getx0();
 	  x0int = xx0[0];
 	}
+      // grating period interfacing the right layer structure
       if (pnltype == 4)
 	{
 	  xx0 = pnl->getx0();
 	  x1int = xx0[0];
 	}
+      pnl = pnl->nextptr;
     }
 
   v = new complex<double>[ord2];
@@ -170,8 +198,9 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
       for (k = -order; k <= order; k++)
 	{
 	  gkb[k+order] = sqrt(pow((twopi*static_cast<double>(k)/period
-				   + gam),2.0) + pow(kapleft,2.0));
+				   + gam),2.0) + pow(kapleft0,2.0));
 	  gkb[k+order] *= I*(static_cast<double>(sheetsleft[order+k]));
+
 	}
 
       hupper = x - x0;
@@ -187,18 +216,22 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 	  xp[ii] = x;
 	}
 
-      for (ii--; ii >= 0 ;ii--)
+      for (ii--; ii >= 0; ii--)
 	{
 	  outfile <<  xp[ii] << "  " << u[ii]/u[0] << endl;
 	}
     }
+  // ======================================================
 
+  // ======================================================
   // calculate the solution in the grating layer
   pnl = gratptr->gtrefpnlptr;
   for (i = 0; i < npnls; i++)
     {
       pnltype = pnl->gettype();
       pnlidxu = pnl->getidxu();
+
+      // panel at the start of the grating period
       if (pnltype == 0)
 	{
 	  for (tmp = 0.0, k = 0, ii = 0; k < ord2; k++, ii += nrows)
@@ -212,8 +245,11 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 	  pnlxcoll = pnl->getxcoll();
 	  outfile << pnlxcoll[0] << "  " <<  tmp/u[0] << endl;
 	}
+      pnl = pnl->nextptr;
     }
+  // =======================================================
 
+  // =======================================================
   // calculate the solution on the right of the grating layer
   if (x1int < x1)
     {
@@ -230,8 +266,8 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 	  // calculate imaginary part of index from loss
 	  indx_i = ((loss * wvl)/(4 * M_PI * 10000));
 	  kapright = complex<double>(indx_r, indx_i);
-
 	  kapright *= omega;	  
+
 	  for (k = -order; k <= order; k++)
 	    {
 	      gkb[k+order] = sqrt(pow((twopi*static_cast<double>(k)/period
@@ -253,7 +289,7 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
       for (k = -order; k <= order; k++)
 	{
 	  gkb[k+order] = sqrt(pow((twopi*static_cast<double>(k)/period
-				   + gam),2.0) + pow(kapright,2.0));
+				   + gam),2.0) + pow(kapright0,2.0));
 	  gkb[k+order] *= I*static_cast<double>(sheetsright[order+k]); 
 	}
 
@@ -270,6 +306,7 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
     }
 
   outfile.close();
+
   return 0;
  
 }

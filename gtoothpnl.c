@@ -34,3 +34,114 @@ gtpanel::gtpanel()
   
   nextptr = NULL;
 }
+
+// default destructor
+gtpanel::~gtpanel()
+{
+  delete [] nextptr;
+}
+
+void gtpanel::setx0(double x, double y)
+{
+  x0[0] = x;
+  x0[1] = y;
+}
+
+void gtpanel::setx1(double x, double y)
+{
+  x1[0] = x;
+  x1[1] = y;
+}
+
+void gtpanel::setxcoll(double x, double y)
+{
+  xcoll[0] = x;
+  xcoll[1] = y;
+}
+
+void gtpanel::setlen(double length)
+{
+  len = length;
+}
+
+void gtpanel::settype(int typ)
+{
+  type = typ;
+}
+
+void gtpanel::setidx(int ind)
+{
+  idx = ind;
+}
+
+void gtpanel::setidxu(int indu)
+{
+  idxu = indu;
+}
+
+void gtpanel::setidxv(int indv)
+{
+  idxv = indv;
+}
+
+void gtpanel::settan(double t0, double t1)
+{
+  tan[0] = t0;
+  tan[1] = t1;
+}
+
+void gtpanel::setnrm(double n0, double n1)
+{
+  nrm[0] = n0;
+  nrm[1] = n1;
+}
+
+double *gtpanel::getx0()
+{
+  return x0;
+}
+
+double *gtpanel::getx1()
+{
+  return x1;
+}
+
+int gtpanel::gettype()
+{
+  return type;
+}
+
+int gtpanel::getidx()
+{
+  return idx;
+}
+
+int gtpanel::getidxu()
+{
+  return idxu;
+}
+
+int gtpanel::getidxv()
+{
+  return idxv;
+}
+
+double gtpanel::getlength()
+{
+  return len;
+}
+
+double *gtpanel::getxcoll()
+{
+  return xcoll;
+}
+
+double *gtpanel::gettan()
+{
+  return tan;
+}
+
+double *gtpanel::getnrm()
+{
+  return nrm;
+}

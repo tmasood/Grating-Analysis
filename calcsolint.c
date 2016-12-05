@@ -93,13 +93,13 @@ complex<double> calcsolint( gtpanel *pnls, gtdomain *dmns, double x,
       nrm = pnl->getnrm();
 
       // this is to cancel the self-term if there is one
-      inner = (x - xcoll[0])*nrm[0] +
-	(z - xcoll[1])*nrm[1];
+      inner = (x - xcoll[0])*nrm[0] + (z - xcoll[1])*nrm[1];
 
       if (fabs(inner) < EPS)
 	ptl[1] = 0.0;
 
       type = pnl->gettype();
+
       if (type <= 1)
 	{
 	  u += double(dmn->ornt[j])*ptl[0]*sol0[i1] - ptl[1]*sol0[i0];

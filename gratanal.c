@@ -176,6 +176,7 @@ int main(int argc, char *argv[])
 
   astart = -2.0;
   aend = 2.0;
+  printsolnintvls = 24000;
 
   nrm = 'I';
   trans = 'N';

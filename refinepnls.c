@@ -54,9 +54,10 @@ gtpanel *refinepnls(grating *gratptr, int *match)
       lsq1 = pow(l1,2.0);
       len = (lsq0 + lsq1);
       len = sqrt(len);
-      np = static_cast<int>((len/dx) + 1);
+      np = static_cast<int>(len/dx) + 1;
       npnls += np;
     }
+  // total number of refined panels
   gratptr->settotalpnls(npnls);
 
   // generate array of refined panels
@@ -76,7 +77,9 @@ gtpanel *refinepnls(grating *gratptr, int *match)
       lsq1 = pow(l1,2.0);
       len = (lsq0 + lsq1);
       len = sqrt(len);
-      np = static_cast<int>((len/dx) + 1);
+      // number of refined panels for each panel
+      np = static_cast<int>(len/dx) + 1;
+      // length of each refined panel
       d0 = (x1[0] - x0[0])/np; // distance in x for refined panel
       d1 = (x1[1] - x0[1])/np; // distance in y for refined panel
 
@@ -89,7 +92,7 @@ gtpanel *refinepnls(grating *gratptr, int *match)
           x10 = x0[0] + (ii+1)*d0;
           x11 = x0[1] + (ii+1)*d1;
 	  pnl->setx1(x10, x11);
-
+	  
           xcoll0 = 0.5*(x00 + x10);
           xcoll1 = 0.5*(x01 + x11);
 	  pnl->setxcoll(xcoll0, xcoll1);
@@ -106,6 +109,7 @@ gtpanel *refinepnls(grating *gratptr, int *match)
       npnls += np;
       intbuf2[i+1] = npnls;
     }
+
   pnl = NULL;
 
   // index new panels, matching \Gamma_0-\Gamma_2 panels

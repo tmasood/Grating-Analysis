@@ -110,7 +110,7 @@ complex<double> **getnullspace(int order, int *dimnp, complex<double> *t,
       mat[i] = new complex<double>[n];
       for (j = 0; j < n; j++, k+=n)
 	{
-	  mat[i][j] = conj(t[k]);
+	  mat[i][j] = (-1.0)*conj(t[k]);
 	}
   }
 

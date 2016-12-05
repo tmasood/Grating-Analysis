@@ -29,7 +29,7 @@ complex<double> nextgam(int order, complex<double> *z, complex<double> gam,
 {
   int i, k, n;
 
-  double nrm, t0, t1, kap;
+  double normal, t0, t1, kap;
   double omega, wvl;
   double indx_r, indx_i;
   double loss;
@@ -42,17 +42,17 @@ complex<double> nextgam(int order, complex<double> *z, complex<double> gam,
   layer *layleftptr, *layrightptr;
 
   n = (4*order)+2;
-  nrm = 0;
+  normal = 0;
   twopi = complex<double>(0.0,(2.0 * M_PI));
 
   // Newton update is the reciprocal of the largest eigenvalue
   for (i=0; i<n; i++)
     {
-      if (abs(z[i]) > nrm)
+      if (abs(z[i]) > normal)
 	{
 	  newtonstep = 1.0 / z[i];
 	  gamnew = gam + newtonstep;
-	  nrm = abs(z[i]);
+	  normal = abs(z[i]);
 	}
     }
 

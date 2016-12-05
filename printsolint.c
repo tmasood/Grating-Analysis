@@ -72,7 +72,7 @@ void printsolint(int order, int nptsx, int nptsz, int npnls, int nrows,
   calcrhsint(order, nrows, npnls, ns, rhs, sol0t, gratptr);
    
   // find the lower/upper bound of the interior interval
-  pnls = gratptr->gtrefpnlptr;
+  pnl = gratptr->gtrefpnlptr;
   for (i=0; i<npnls; i++)
     {
       pnltype = pnl->gettype();
@@ -96,7 +96,7 @@ void printsolint(int order, int nptsx, int nptsz, int npnls, int nrows,
     {
       for (i=0, x=x0int; i<=nptsx; i++, x+=dx)
 	{
-	  u = calcsolint(pnls, dmns, x, z, lambda, rhs, sol0t, epiptr,
+	  u = calcsolint(pnl, dmns, x, z, lambda, rhs, sol0t, epiptr,
 			 gratptr);
 	  fpre << real(u) << " ";
 	  fpim << imag(u) << " ";

@@ -1,6 +1,6 @@
 //
-//  Copyright 2015 Quantum Designs LLC, Taha Masood, Johannes Tausch
-//  and Jerome Butler
+//  Copyright 2015, 2016 Quantum Designs LLC, Taha Masood,
+//  Johannes Tausch and Jerome Butler
 //
 //  Permission to use, copy, and distribute this software and its
 //  documentation for any purpose with or without fee is hereby granted,
@@ -43,7 +43,7 @@ int indxpnls(grating *gratptr, int *match)
   pnlptr = gratptr->gtpnlptr;
   index = 0;
 
-  for (i=0, pnl=pnlptr; pnl != NULL; pnl=pnl->nextptr, i++)
+  for (i=0, pnl=pnlptr; pnl!=NULL; pnl=pnl->nextptr, i++)
     {
       type = pnl->gettype();
       if (type == 0)
@@ -63,6 +63,7 @@ int indxpnls(grating *gratptr, int *match)
 		  dist += pow(d2,2.0);
 		  if ( dist < IPEPS )
 		    {
+		      // break from for (k=0 ...
 		      break;
 		    }
 		}
@@ -91,7 +92,7 @@ int indxpnls(grating *gratptr, int *match)
 	  pnl->setidx(index);
 	  index++;
 	}
-    } // for pnl
+    } // for pnl - top level
 
-  return 0;
-}
+  return 0; // end index panels
+} 

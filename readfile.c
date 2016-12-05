@@ -266,3 +266,21 @@ int readfile(char* filename, structure *epiptr, grating *gratptr,
   	  
   return 0;
 }
+
+
+void trimspaces(string& str)
+{
+  size_t startpos, endpos;
+  
+  startpos = str.find_first_not_of(" \t");
+  endpos = str.find_last_not_of(" \t");
+
+  if ((string::npos == startpos) || (string::npos == endpos))
+    {
+      str = "";
+    }
+  else
+    {
+      str = str.substr(startpos, endpos-startpos+1);
+    }
+}
