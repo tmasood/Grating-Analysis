@@ -192,8 +192,8 @@ gtpanel *refinepnls(grating *gratptr, int *match)
           j = abs(intbuf[i]);
           npnls += intbuf2[j+1] - intbuf2[j];
         }
-      dmn->indp = new int[npnls];
-      dmn->ornt = new int[npnls];
+      dmn->refindp = new int[npnls];
+      dmn->refornt = new int[npnls];
 
       for (k = 0, i = 0; i < npanels; i++)
         {
@@ -201,8 +201,8 @@ gtpanel *refinepnls(grating *gratptr, int *match)
           np = intbuf2[j+1] - intbuf2[j];
           for (ii = 0 ; ii < np; ii++, k++)
             {
-              dmn->indp[k] = intbuf2[j]+ii;
-              dmn->ornt[k] = sgn(intbuf[i]);
+              dmn->refindp[k] = intbuf2[j]+ii;
+              dmn->refornt[k] = sgn(intbuf[i]);
             }
         }
       dmn->setnpanels(k);

@@ -61,6 +61,7 @@ complex<double> calcsolint( gtpanel *pnls, gtdomain *dmns, double x,
 
   factor=0.25*I;
   xc[0] = x;  xc[1] = z;
+
   k = domainnr(x, z, &alf, epiptr, gratptr);
 
   if (k == 0)
@@ -70,24 +71,24 @@ complex<double> calcsolint( gtpanel *pnls, gtdomain *dmns, double x,
     }
 
   factor *= 1.0/alf;
-  
-  for (dmn=dmns, j=1; j<k; j++)
+
+  for (dmn=dmns, j=1; j < k; j++)
     {
       dmn = dmn->nextptr;
     }
 
   npnls = dmn->getnpanels();
+  pnl = gratptr->gtrefpnlptr;
 
   for (u=0.0, j=0; j<npnls; j++)
     {
-      pnl = &(pnls[dmn->indp[j]]);
       pnlidxu = pnl->getidxu();
       pnlidxv = pnl->getidxv();
       i0 = pnlidxu;
       i1 = pnlidxv;
       kappa = dmn->getkap();
 
-      calcp(pnl, xc, kappa, dmn->ornt[j], ptl);
+      calcp(pnl, xc, kappa, dmn->refornt[j], ptl);
 
       xcoll = pnl->getxcoll();
       nrm = pnl->getnrm();
@@ -102,7 +103,7 @@ complex<double> calcsolint( gtpanel *pnls, gtdomain *dmns, double x,
 
       if (type <= 1)
 	{
-	  u += double(dmn->ornt[j])*ptl[0]*sol0[i1] - ptl[1]*sol0[i0];
+	  u += double(dmn->refornt[j])*ptl[0]*sol0[i1] - ptl[1]*sol0[i0];
 	}
       else if (type == 2)
 	{
@@ -112,6 +113,9 @@ complex<double> calcsolint( gtpanel *pnls, gtdomain *dmns, double x,
 	{
 	  u += ptl[0]*sol0[i1] - ptl[1]*rhs[i1];
 	}
+
+      pnl = pnl->nextptr;
     }
+
   return factor*u;
 }

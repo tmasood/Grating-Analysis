@@ -218,7 +218,8 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 
       for (ii--; ii >= 0; ii--)
 	{
-	  outfile <<  xp[ii] << "  " << u[ii]/u[0] << endl;
+	  outfile <<  xp[ii] << "  " << real(u[ii]/u[0]);
+	  outfile << "  " << imag(u[ii]/u[0]) << endl;
 	}
     }
   // ======================================================
@@ -243,7 +244,8 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 	      tmp += sol0[ii+pnlidxu]*vright[k];
 	    }
 	  pnlxcoll = pnl->getxcoll();
-	  outfile << pnlxcoll[0] << "  " <<  tmp/u[0] << endl;
+	  outfile << pnlxcoll[0] << "  " <<  real(tmp/u[0]);
+	  outfile << "  " <<  imag(tmp/u[0]) << endl;
 	}
       pnl = pnl->nextptr;
     }
@@ -279,7 +281,8 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 	    {
 	      // print calcsoln2;
 	      tmp = calcsolnpt(order, v, w, gkb, h);
-	      outfile << x <<  tmp/u[0] << endl;
+	      outfile << x << "  " << real(tmp/u[0]);
+	      outfile << "  " <<  imag(tmp/u[0]) << endl;
 	    }
 
 	  translatevw(order, v, w, gkb, wright);
@@ -301,7 +304,8 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 	    {
 	      tmp += v[k]*exp(gkb[k]*h);
 	    }
-	  outfile << x << "  " <<  tmp/u[0] << endl;
+	  outfile << x << "  " << real(tmp/u[0]);
+	  outfile << "  " << imag(tmp/u[0]) << endl;
 	}
     }
 

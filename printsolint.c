@@ -56,6 +56,7 @@ void printsolint(int order, int nptsx, int nptsz, int npnls, int nrows,
   double period;
   double *x0;
   complex<double> u;
+  complex<double> *sol;
   gtpanel *pnl;
   int pnltype;
   char fnam[50]; 
@@ -70,6 +71,8 @@ void printsolint(int order, int nptsx, int nptsz, int npnls, int nrows,
   ord4 = 2*ord2;
 
   calcrhsint(order, nrows, npnls, ns, rhs, sol0t, gratptr);
+
+  sol = *sol0t;
    
   // find the lower/upper bound of the interior interval
   pnl = gratptr->gtrefpnlptr;
@@ -86,6 +89,8 @@ void printsolint(int order, int nptsx, int nptsz, int npnls, int nrows,
 	{
 	  x1int = x0[0];
 	}
+
+      pnl = pnl->nextptr;
     }
 
   dx = (x1int - x0int)/nptsx;

@@ -39,6 +39,7 @@ int domainnr(double x, double z, double *alf, structure *epiptr,
 {
   double thght;
   double period;
+  double dc;
 
   int gl;
   int layr;
@@ -57,17 +58,42 @@ int domainnr(double x, double z, double *alf, structure *epiptr,
 
   thght = layptr->getlayerthickness();
   period = gratptr->getperiod();
+  dc = gratptr->getdc();
 
-  if ( fabs(x) < EPS ) *alf = 0.5;
-  if ( fabs(x - thght) < EPS ) *alf = 0.5;
+  if (fabs(x) < EPS)
+    {
+      *alf = 0.5;
+    }
 
-  if ( fabs(z - (0.5*period)) < EPS ) *alf = 0.5;
-  if ( fabs(z) < EPS ) *alf = 0.5;
-  if ( fabs(z - period) < EPS ) *alf = 0.5;
+  if (fabs(x - thght) < EPS)
+    {
+      *alf = 0.5;
+    }
 
-  if ( x < -EPS ||  x > thght+EPS || z < -EPS || z > period+EPS )
-    return 0;
+  if (fabs(z - (dc*period)) < EPS)
+    {
+      *alf = 0.5;
+    }
 
-  if ( z > 0.5*period ) return 1;
+  if (fabs(z) < EPS)
+    {
+      *alf = 0.5;
+    }
+
+  if (fabs(z - period) < EPS)
+    {
+      *alf = 0.5;
+    }
+
+  if ((x < -EPS) ||  (x > thght+EPS) || (z < -EPS) || (z > period+EPS))
+    {
+      return 0;
+    }
+
+  if (z >= (dc*period))
+    {
+      return 1;
+    }
+
   return 2;
 }

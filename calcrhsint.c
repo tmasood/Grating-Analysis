@@ -36,7 +36,7 @@ using namespace std;
 // The solution of type 2 panels can be obtained by multiplying the
 // corresponding
 // type 0 panel with the factor lambda, i.e.
-// type=2  =>       u( pnl->xColl ) = lambda*Sol[ pnl->idxU ];
+// type=2  =>     u( pnl->xColl ) = lambda*Sol[ pnl->idxU ];
 //                du/dn( pnl->xColl ) = lambda*Sol[ pnl->idxV ];
 // and is therefore not calculated by this routine.
 
@@ -66,6 +66,8 @@ int calcrhsint(int order, int nrows, int npnls, complex<double> *ns,
       i1 = pnl->getidxv();
 
       pnltype = pnl->gettype();
+
+      // bottom and top interface of bottom domain
       if (pnltype <= 1)
 	{
 	  for (u=v=0.0, icol=0, k=0; k<ord4; icol+=nrows, k++)
@@ -74,9 +76,10 @@ int calcrhsint(int order, int nrows, int npnls, complex<double> *ns,
 	      v += ns[k]*sol0[icol + i1];
 	    }
 	  sol0[i0] = u;
-	  sol0[i1] = v;
+	  sol0[i1] = v;	  
 	}
 
+      // vertical left side boundary
       else if (pnltype == 3)
 	{
 	  for (v=0.0, icol=0, k=0; k<ord4; icol+=nrows, k++)
@@ -85,6 +88,7 @@ int calcrhsint(int order, int nrows, int npnls, complex<double> *ns,
 	    }
 
 	  sol0[i1] = v;
+
 	  for (u=0.0, k=0; k<ord2; k++)
 	    {
 	      xc = pnl->getxcoll();
@@ -94,6 +98,7 @@ int calcrhsint(int order, int nrows, int npnls, complex<double> *ns,
 	  rhs[i1] = u;
 	}
 
+      // vertical right side boundary
       else if (pnltype == 4)
 	{
 	  for (v=0.0, icol=0, k=0; k<ord4; icol+=nrows, k++ )

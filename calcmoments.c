@@ -198,7 +198,7 @@ int calcmoments(structure *epiptr, grating *gratptr, int nrows,
       for (i = 0; i < npts; i++, irow++)
 	{
 	  pnls = gratptr->gtrefpnlptr;
-	  for (p = 0; p < dmn->indp[i]; p++)
+	  for (p = 0; p < dmn->refindp[i]; p++)
 	    {
 	      pnls = pnls->nextptr;
 	    }
@@ -208,11 +208,11 @@ int calcmoments(structure *epiptr, grating *gratptr, int nrows,
 	  for (j = 0; j < dmnpnls; j++)
 	    {
 	      pnl = gratptr->gtrefpnlptr;
-	      for (p = 0; p < dmn->indp[j]; p++)
+	      for (p = 0; p < dmn->refindp[j]; p++)
 		{
 		  pnl = pnl->nextptr;
 		}
-	      calcp(pnl, xc, kappa, dmn->ornt[j], ptl);
+	      calcp(pnl, xc, kappa, dmn->refornt[j], ptl);
 	      pnlidxu = pnl->getidxu();
 	      pnlidxv = pnl->getidxv();
 	      posu = irow + (nrows * pnlidxu);
@@ -232,7 +232,7 @@ int calcmoments(structure *epiptr, grating *gratptr, int nrows,
 		}
 	      else
 		{
-		  orn = complex<double>(dmn->ornt[j],0);
+		  orn = complex<double>(dmn->refornt[j],0);
 		  a[posv] -= (orn * ptl[0]);  // ornt because of du/dn
 		  a1[posv] = 0.0;
 		  if (pnltype < 3)

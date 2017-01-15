@@ -20,6 +20,9 @@ gtdomain::gtdomain()
 
   kap = complex<double>(0,0);
   indp = NULL;
+  ornt = NULL;
+  refindp = NULL;
+  refornt = NULL;
   nextptr = NULL;
 }
 
@@ -27,6 +30,10 @@ gtdomain::gtdomain()
 gtdomain::~gtdomain()
 {
   delete [] indp;
+  delete [] ornt;
+  delete [] refindp;
+  delete [] refornt;
+
   delete [] nextptr;
 }
 
