@@ -64,7 +64,7 @@ int translated2n(int k, complex<double> *g, layer *layptr, int nj,
   v1[1] = g[1];
 
   layptr = layptr->nextptr;
-  for (j = 1; j < nj; j++)
+  for (j = 1; j <= nj; j++)
     {
       wvl = epiptr->getwavelength();
       omega = (2 * M_PI)/wvl;

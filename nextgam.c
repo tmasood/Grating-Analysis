@@ -45,6 +45,8 @@ complex<double> nextgam(int order, complex<double> *z, complex<double> gam,
   normal = 0;
   twopi = complex<double>(0.0,(2.0 * M_PI));
 
+  period = gratptr->getperiod();
+
   // Newton update is the reciprocal of the largest eigenvalue
   for (i=0; i<n; i++)
     {
@@ -105,6 +107,7 @@ complex<double> nextgam(int order, complex<double> *z, complex<double> gam,
 	if (t0 >= 0.0 && t0 <= 1.0)
 	  {
 	    t1 = imag(gamk) + t0*imag(newtonstep);
+
 	    if ( fabs(t1) >  kap)
 	      {
 		sheetsright[i] *= -1;

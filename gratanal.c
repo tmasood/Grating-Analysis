@@ -174,7 +174,7 @@ int main(int argc, char *argv[])
   lambda = 1.0;
   qorder = 3;
 
-  astart = -2.0;
+  astart = -1.0;
   aend = 2.0;
   printsolnintvls = 24000;
 
@@ -262,7 +262,6 @@ int main(int argc, char *argv[])
       epiptr->setbetaguess(gam);
       period = gratptr->getperiod();
       lambda = exp(gam*period);
-      cout << "lambda = " << lambda << "\n";
 
       order = gratptr->getssspchrmncs();
       ord2 = (2 * order) + 1;
@@ -281,9 +280,10 @@ int main(int argc, char *argv[])
       vl = new complex<double>[ord4];
 
       initsheets(&sheetsleft, &sheetsright, gam, gratptr, epiptr);
-      
+
       while (loopcnt < MAXITER)
 	{
+	  cout << "gam = " << gam << "\n";
 	  calcmoments(epiptr, gratptr, nrows, &lambda, &atmp, &sol0tmp,
 		      &sol1tmp, &rhstmp,&a1tmp, &btmp, &mom, &ipv);
 
@@ -320,7 +320,7 @@ int main(int argc, char *argv[])
 
 	  gam = nextgam(order, eigval, gam, sheetsleft, sheetsright,
 			epiptr, gratptr);
-	  cout << "gam = " << gam << "\n";
+
 	  epiptr->setbetaguess(gam);
 	  ko = epiptr->getko();
 	  period = gratptr->getperiod();
