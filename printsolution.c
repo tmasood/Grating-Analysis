@@ -126,7 +126,7 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
   kapright *= omega;
 
   // infinite layer right
-  kapright0 *= kapright;
+  kapright0 = kapright;
 
   pnl = gratptr->gtrefpnlptr;
   // find the lower/upper bound of the interior interval
@@ -154,6 +154,7 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 
   dx = (x1 - x0)/npts;
 
+  //========================================================
   // calculate the solution on the left of the grating layer
   nptsleft = static_cast<int>(((x0int - x0)/dx) + 1);
   gam = epiptr->getbetaguess();
@@ -200,18 +201,17 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 	  gkb[k+order] = sqrt(pow((twopi*static_cast<double>(k)/period
 				   + gam),2.0) + pow(kapleft0,2.0));
 	  gkb[k+order] *= I*(static_cast<double>(sheetsleft[order+k]));
-
 	}
 
       hupper = x - x0;
 
       for (h = 0; h < hupper; h += dx, x -= dx, ii++)
 	{
-	  for (tmp = 0.0, k = 0; k < ord2; k++)
+	  tmp = complex<double>(0.0,0.0);
+	  for (k = 0; k < ord2; k++)
 	    {
 	      tmp += v[k]*exp(gkb[k]*h);
 	    }
-	  
 	  u[ii] = tmp;
 	  xp[ii] = x;
 	}
@@ -235,7 +235,8 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
       // panel at the start of the grating period
       if (pnltype == 0)
 	{
-	  for (tmp = 0.0, k = 0, ii = 0; k < ord2; k++, ii += nrows)
+	  tmp = complex<double>(0.0,0.0);
+	  for (k = 0, ii = 0; k < ord2; k++, ii += nrows)
 	    {
 	      tmp += sol0[ii+pnlidxu]*vleft[k];
 	    }
@@ -261,6 +262,7 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 	  w[k] = extd2nright[k]*vright[k];
 	}
 
+      // if there are multiple layers on right side of grating
       for (x = x1int, j = ntrnsright; j > 0; j--)
 	{
 	  indx_r = layrightptr->getlayerindex();
@@ -300,7 +302,8 @@ int printsolution(int order, double x0, double x1, int npts, int npnls,
 
       for (h = 0; h < hupper; h += dx, x += dx)
 	{
-	  for (tmp=0.0, k=0; k<ord2; k++)
+	  tmp = complex<double>(0.0,0.0);
+	  for (k=0; k<ord2; k++)
 	    {
 	      tmp += v[k]*exp(gkb[k]*h);
 	    }
