@@ -17,7 +17,7 @@
 # WVL = Wavelength
 WVL = 1.0
 # Zguess (Root guess)  -- alpha + jBeta - ZG = alpha Beta
-ZG = -4.74774e-06	1.60
+ZG = -0.001106128	1.7284241
 # STYPE (structure type) can be WG (waveguide) and GRAT (waveguide 
 # with grating perturbation)
 STYPE = GRAT

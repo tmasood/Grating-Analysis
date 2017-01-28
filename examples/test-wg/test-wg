@@ -1,6 +1,6 @@
 #
-#  Copyright 2015 Quantum Designs LLC, Taha Masood, Johannes Tausch
-#  and Jerome Butler
+#  Copyright 2015, 2016 Quantum Designs LLC, Taha Masood,
+#  Johannes Tausch and Jerome Butler
 #
 #  Permission to use, copy, and distribute this software and its
 #  documentation for any purpose with or without fee is hereby granted,
@@ -15,9 +15,9 @@
 # --------------  Structure parameters ---------------
 # ----------------------------------------------------
 # WVL = Wavelength
-WVL = 1.310
+WVL = 1.0
 # Zguess (Root guess)  -- alpha + jBeta - ZG = alpha Beta
-ZG = -4.74774e-06	3.24576
+ZG = -0.0011061277	1.7284241419154
 # STYPE (structure type) can be WG (waveguide) and GRAT (waveguide 
 # with grating perturbation)
 STYPE = GRAT
@@ -28,13 +28,13 @@ STYPE = GRAT
 # layer number starts with 0
 # Cycle(Fraction); GS = Grating Shape;
 # GS = RECT, SIN, TRI, BLZ, and ARB corresponding to rectangular,
-# sinusoidal, triangular, blazed and arbitrary shaped gratings
-# count layer number from 0
-GS = RECT
-GL = 51
-FL = 52
-PRD = 0.42
-DC = 0.5
+# sinusoidal, triangular, blazed and arbitrary shaped gratings.
+# Count layer number from 0
+GS = WG
+GL = 1
+FL = 2
+PRD = 1.0
+DC = 0.0
 DX = 0.01
 # The number of boundary points is related to space harmonics (SH)
 # Number(half) of Space Harmonics and NCP (vertical boundary points)
@@ -61,58 +61,8 @@ LAYER_START
 # D2: Absorption Coefficient loss (1/cm)
 # D3: Layer thicknes (Same units as wavelength)
 # S9: Layer comments
-# D1	D2	D3	S9
-3.1987	0.0	0.0	InP n-substrate
-3.2689	0.0	0.0005	transition GRIN
-3.2613	0.0	0.001	transition GRIN
-3.2575	0.0	0.001	transition GRIN
-3.2537	0.0	0.001	transition GRIN
-3.2499	0.0	0.001	transition GRIN
-3.2462	0.0	0.001	transition GRIN
-3.2424	0.0	0.001	transition GRIN
-3.2386	0.0	0.001	transition GRIN
-3.2382	0.0	0.001	transition GRIN
-3.2310	0.0	0.0115	inner n-cladding
-3.2452	0.0	0.0075	n-GRIN
-3.2593	0.0	0.015	n-GRIN
-3.2735	0.0	0.015	n-GRIN
-3.2877	0.0	0.015	n-GRIN
-3.3019	0.0	0.015	n-GRIN
-3.3161	0.0	0.015	n-GRIN
-3.3302	0.0	0.015	n-GRIN
-3.3444	0.0	0.015	n-GRIN
-3.3586	0.0	0.015	n-GRIN
-3.3728	0.0	0.0225	n-GRIN
-3.4850	0.0	0.005	QW
-3.3728	0.0	0.01	barrier
-3.4850	0.0	0.005	QW
-3.3728	0.0	0.01	barrier
-3.4850	0.0	0.005	QW
-3.3728	0.0	0.01	barrier
-3.4850	0.0	0.005	QW
-3.3728	0.0	0.01	barrier
-3.4850	0.0	0.005	QW
-3.3728	0.0	0.0075	p-GRIN
-3.3586	0.0	0.015	p-GRIN
-3.3444	0.0	0.015	p-GRIN
-3.3302	0.0	0.015	p-GRIN
-3.3161	0.0	0.015	p-GRIN
-3.3019	0.0	0.015	p-GRIN
-3.2877	0.0	0.015	p-GRIN
-3.2735	0.0	0.015	p-GRIN
-3.2593	0.0	0.015	p-GRIN
-3.2452	0.0	0.015	p-GRIN
-3.2310	0.0	0.0185	inner p-cladding
-3.2348	0.0	0.0005	transition GRIN
-3.2386	0.0	0.001	transition GRIN
-3.2424	0.0	0.001	transition GRIN
-3.2462	0.0	0.001	transition GRIN
-3.2499	0.0	0.001	transition GRIN
-3.2537	0.0	0.001	transition GRIN
-3.2575	0.0	0.001	transition GRIN
-3.2613	0.0	0.001	transition GRIN
-3.2651	0.0	0.001	transition GRIN
-3.2689	0.0	0.0015	transition GRIN
-3.1987	0.0	0.130	p-spacer
-1.7	0.0	0.0	nitride
+# D1		D2	D3		S9
+1.5165751	0.0	0.0		Substrate- n=sqrt(2.3)
+1.7320508	0.0	0.83	 	Width of grating
+1.0		0.0	0.0		Air
 LAYER_END
