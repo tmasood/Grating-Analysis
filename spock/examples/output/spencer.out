@@ -1,0 +1,120 @@
+
+ **SPOCK (Simulation tool for Photonics and Optical Circuit Knowledge)** 
+=============================================================== 
+Version: 0.01 
+
+
+** case number 1  1 ** 
+
+Summary of the structure, polarisations and boundary conditions 
+------------------------------------------------------------- 
+ 
+Implied unit of length - um (1.0e-6 meters). 
+All parameters are normalized. 
+Nominal wavelength = 4.650000 um. 
+Free space k0 = 2*PI/wvl =  1.351223 rad/um. 
+Complex freqency factor kc = (1.000000, 0.000000). 
+Effective-k0 = kc * k0 = (1.351223, 0.000000). 
+All propagation coefficients are normalized to effective-k0.
+Relative frequency kf = (1.000000, 0.000000). 
+
+Polarization kpol (=0 TE case, =1 TM case) = 1. 
+transverse magnetic case- Hx = Ey = Hz = 0.
+Tangential Fy = Hy, longitudinal Fz = -Ez and 
+transverse Fx = Ex. Yx = Fz/Fy and 
+Yz = Fx/Fy are wave admittances in the 
+postive x and z direction 
+ 
+ 
+ Layered Structure: 
+Total layers = 8. 
+Boundries = 7. 	 Finite layers = 6  
+
+-----------------------------------------------
+
+Semi-infinite Layer: 
+
+ Outer boundary is boundry 1 
+pe = (6.250000 0.000000), pm = (1.000000 0.000000) 
+layer number = 1 
+qn = (6.250000 0.000000), yn = (0.160000 0.000000) 
+rn = (2.500000 0.000000) 
+
+-----------------------------------------------
+
+Finite Layers: 
+pe = (8.526400, 0.000000), pm = (1.000000, 0.000000). 
+layer number = 2, tl = 1.240000. 
+qn = (8.526400, 0.000000), yn = (0.117283, 0.000000). 
+tl/wvl = 0.266667, rn = (2.920000 0.000000), ph0 = (4.892507 0.000000). 
+boundry location = 1.240000 
+-----------------------------------------------
+
+pe = (10.048900, 0.000000), pm = (1.000000, 0.000000). 
+layer number = 3, tl = 0.500000. 
+qn = (10.048900, 0.000000), yn = (0.099513, 0.000000). 
+tl/wvl = 0.107527, rn = (3.170000 0.000000), ph0 = (2.141688 0.000000). 
+boundry location = 1.740000 
+-----------------------------------------------
+
+pe = (10.240000, 0.000000), pm = (1.000000, 0.000000). 
+layer number = 4, tl = 0.740000. 
+qn = (10.240000, 0.000000), yn = (0.097656, 0.000000). 
+tl/wvl = 0.159140, rn = (3.200000 0.000000), ph0 = (3.199695 0.000000). 
+boundry location = 2.480000 
+-----------------------------------------------
+
+pe = (12.040900, 0.000000), pm = (1.000000, 0.000000). 
+layer number = 5, tl = 0.240000. 
+qn = (12.040900, 0.000000), yn = (0.083050, 0.000000). 
+tl/wvl = 0.051613, rn = (3.470000 0.000000), ph0 = (1.125298 0.000000). 
+boundry location = 2.720000 
+-----------------------------------------------
+
+pe = (11.492100, 0.000000), pm = (1.000000, 0.000000). 
+layer number = 6, tl = 1.240000. 
+qn = (11.492100, 0.000000), yn = (0.087016, 0.000000). 
+tl/wvl = 0.266667, rn = (3.390000 0.000000), ph0 = (5.679999 0.000000). 
+boundry location = 3.960000 
+-----------------------------------------------
+
+pe = (11.356900, 0.000000), pm = (1.000000, 0.000000). 
+layer number = 7, tl = 0.240000. 
+qn = (11.356900, 0.000000), yn = (0.088052, 0.000000). 
+tl/wvl = 0.051613, rn = (3.370000 0.000000), ph0 = (1.092869 0.000000). 
+boundry location = 4.200000 
+-----------------------------------------------
+
+-----------------------------------------------
+
+Semi-infinite Layer: 
+
+ Outer boundary is boundry 7 
+pe = (9.241600 0.000000), pm = (1.000000 0.000000) 
+layer number = 8 
+qn = (9.241600 0.000000), yn = (0.108206 0.000000) 
+rn = (3.040000 0.000000) 
+
+-----------------------------------------------
+
+Boundary 1, kbc1 = 1, kbd1 = 2. 
+Open boundry, semi-infinite adjacent layer 
+Principal branch specification for wx. Angle 
+apb = 0.250000 pi, vector vpb = (0.707107, 0.707107). (wx*dot*vpb >= 20)
+Eigen condition: Outward wave solution only 
+Eigen condition- closed boundary. Outer layers ignored.
+Fixed surface admittance(TE)/impedance(TM) yb = (1.000000, 0.000000) 
+Fixed surface admittance(TE)/impedance(TM) zb = (1.000000, 0.000000) 
+ 
+boundary 7, kbc2 = 1, kbd2 = 2. 
+Open boundry, semi-infinite adjacent layer. 
+Principal branch specification for wx. Angle 
+apb = 0.250000 pi, vector vpb = (0.707107 0.707107). (wx.vpb >= 20) 
+Eigen condition: Outward wave solution only 
+ 
+Eigen condition- closed boundary. Outer layers ignored.
+Fixed surface admittance(TE)/impedance(TM) yb = (1.000000, 0.000000) 
+Fixed surface admittance(TE)/impedance(TM) zb = (1.000000, 0.000000) 
+
+end structure description 
+================================================== 

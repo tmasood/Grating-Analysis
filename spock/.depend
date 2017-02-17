@@ -1,0 +1,268 @@
+# DO NOT DELETE
+
+readinputfile.o: /usr/include/stdio.h /usr/include/features.h
+readinputfile.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+readinputfile.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+readinputfile.o: /usr/include/bits/types.h /usr/include/libio.h
+readinputfile.o: /usr/include/_G_config.h /usr/include/wchar.h
+readinputfile.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+readinputfile.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+readinputfile.o: /usr/include/bits/stdio_lim.h util.h charmatrix.h
+readinputfile.o: local_complex.h layer.h case.h modcon.h struct.h output.h
+readinputfile.o: gamout.h
+readcase.o: /usr/include/stdio.h /usr/include/features.h
+readcase.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+readcase.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+readcase.o: /usr/include/bits/types.h /usr/include/libio.h
+readcase.o: /usr/include/_G_config.h /usr/include/wchar.h
+readcase.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+readcase.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+readcase.o: /usr/include/bits/stdio_lim.h util.h charmatrix.h local_complex.h
+readcase.o: case.h
+readoutput.o: /usr/include/stdio.h /usr/include/features.h
+readoutput.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+readoutput.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+readoutput.o: /usr/include/bits/types.h /usr/include/libio.h
+readoutput.o: /usr/include/_G_config.h /usr/include/wchar.h
+readoutput.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+readoutput.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+readoutput.o: /usr/include/bits/stdio_lim.h util.h charmatrix.h
+readoutput.o: local_complex.h output.h
+readgamout.o: /usr/include/stdio.h /usr/include/features.h
+readgamout.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+readgamout.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+readgamout.o: /usr/include/bits/types.h /usr/include/libio.h
+readgamout.o: /usr/include/_G_config.h /usr/include/wchar.h
+readgamout.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+readgamout.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+readgamout.o: /usr/include/bits/stdio_lim.h util.h charmatrix.h
+readgamout.o: local_complex.h gamout.h
+readlayers.o: /usr/include/stdio.h /usr/include/features.h
+readlayers.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+readlayers.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+readlayers.o: /usr/include/bits/types.h /usr/include/libio.h
+readlayers.o: /usr/include/_G_config.h /usr/include/wchar.h
+readlayers.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+readlayers.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+readlayers.o: /usr/include/bits/stdio_lim.h util.h charmatrix.h
+readlayers.o: local_complex.h layer.h
+readgradedlayer.o: /usr/include/stdio.h /usr/include/features.h
+readgradedlayer.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+readgradedlayer.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+readgradedlayer.o: /usr/include/bits/types.h /usr/include/libio.h
+readgradedlayer.o: /usr/include/_G_config.h /usr/include/wchar.h
+readgradedlayer.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+readgradedlayer.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+readgradedlayer.o: /usr/include/bits/stdio_lim.h util.h charmatrix.h
+readgradedlayer.o: local_complex.h layer.h struct.h
+commandoptions.o: /usr/include/stdio.h /usr/include/features.h
+commandoptions.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+commandoptions.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+commandoptions.o: /usr/include/bits/types.h /usr/include/libio.h
+commandoptions.o: /usr/include/_G_config.h /usr/include/wchar.h
+commandoptions.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+commandoptions.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+commandoptions.o: /usr/include/bits/stdio_lim.h util.h charmatrix.h
+commandoptions.o: local_complex.h struct.h layer.h
+guideparams.o: /usr/include/stdio.h /usr/include/features.h
+guideparams.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+guideparams.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+guideparams.o: /usr/include/bits/types.h /usr/include/libio.h
+guideparams.o: /usr/include/_G_config.h /usr/include/wchar.h
+guideparams.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+guideparams.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+guideparams.o: /usr/include/bits/stdio_lim.h /usr/include/string.h util.h
+guideparams.o: charmatrix.h local_complex.h case.h layer.h struct.h modcon.h
+guideparams.o: output.h /usr/include/math.h /usr/include/bits/huge_val.h
+guideparams.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+calcindex.o: /usr/include/stdio.h /usr/include/features.h
+calcindex.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+calcindex.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+calcindex.o: /usr/include/bits/types.h /usr/include/libio.h
+calcindex.o: /usr/include/_G_config.h /usr/include/wchar.h
+calcindex.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+calcindex.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+calcindex.o: /usr/include/bits/stdio_lim.h /usr/include/string.h util.h
+calcindex.o: charmatrix.h local_complex.h struct.h layer.h
+charmatrix.o: /usr/include/stdio.h /usr/include/features.h
+charmatrix.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+charmatrix.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+charmatrix.o: /usr/include/bits/types.h /usr/include/libio.h
+charmatrix.o: /usr/include/_G_config.h /usr/include/wchar.h
+charmatrix.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+charmatrix.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+charmatrix.o: /usr/include/bits/stdio_lim.h util.h charmatrix.h
+charmatrix.o: local_complex.h layer.h struct.h modcon.h
+search.o: /usr/include/stdio.h /usr/include/features.h
+search.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+search.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+search.o: /usr/include/bits/types.h /usr/include/libio.h
+search.o: /usr/include/_G_config.h /usr/include/wchar.h
+search.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+search.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+search.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+search.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+search.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+search.o: case.h layer.h struct.h modcon.h output.h
+czerom.o: /usr/include/stdio.h /usr/include/features.h
+czerom.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+czerom.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+czerom.o: /usr/include/bits/types.h /usr/include/libio.h
+czerom.o: /usr/include/_G_config.h /usr/include/wchar.h
+czerom.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+czerom.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+czerom.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+czerom.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+czerom.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+czerom.o: case.h layer.h struct.h output.h modcon.h
+initialize.o: /usr/include/stdio.h /usr/include/features.h
+initialize.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+initialize.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+initialize.o: /usr/include/bits/types.h /usr/include/libio.h
+initialize.o: /usr/include/_G_config.h /usr/include/wchar.h
+initialize.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+initialize.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+initialize.o: /usr/include/bits/stdio_lim.h util.h charmatrix.h
+initialize.o: local_complex.h case.h struct.h modcon.h
+local_complex.o: /usr/include/math.h /usr/include/features.h
+local_complex.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+local_complex.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+local_complex.o: /usr/include/bits/mathcalls.h local_complex.h
+eigeqf.o: /usr/include/stdio.h /usr/include/features.h
+eigeqf.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+eigeqf.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+eigeqf.o: /usr/include/bits/types.h /usr/include/libio.h
+eigeqf.o: /usr/include/_G_config.h /usr/include/wchar.h
+eigeqf.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+eigeqf.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+eigeqf.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+eigeqf.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+eigeqf.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+eigeqf.o: struct.h layer.h case.h modcon.h
+laymat.o: /usr/include/stdio.h /usr/include/features.h
+laymat.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+laymat.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+laymat.o: /usr/include/bits/types.h /usr/include/libio.h
+laymat.o: /usr/include/_G_config.h /usr/include/wchar.h
+laymat.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+laymat.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+laymat.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+laymat.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+laymat.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+laymat.o: case.h layer.h struct.h modcon.h output.h
+powers.o: /usr/include/stdio.h /usr/include/features.h
+powers.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+powers.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+powers.o: /usr/include/bits/types.h /usr/include/libio.h
+powers.o: /usr/include/_G_config.h /usr/include/wchar.h
+powers.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+powers.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+powers.o: /usr/include/bits/stdio_lim.h util.h charmatrix.h local_complex.h
+powers.o: layer.h struct.h modcon.h
+int4pt.o: /usr/include/stdio.h /usr/include/features.h
+int4pt.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+int4pt.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+int4pt.o: /usr/include/bits/types.h /usr/include/libio.h
+int4pt.o: /usr/include/_G_config.h /usr/include/wchar.h
+int4pt.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+int4pt.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+int4pt.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+int4pt.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+int4pt.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+int4pt.o: case.h layer.h struct.h modcon.h output.h
+pfail.o: /usr/include/stdio.h /usr/include/features.h
+pfail.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+pfail.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+pfail.o: /usr/include/bits/types.h /usr/include/libio.h
+pfail.o: /usr/include/_G_config.h /usr/include/wchar.h
+pfail.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+pfail.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+pfail.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+pfail.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+pfail.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+pfail.o: case.h layer.h struct.h modcon.h output.h
+nrmlzf.o: /usr/include/stdio.h /usr/include/features.h
+nrmlzf.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+nrmlzf.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+nrmlzf.o: /usr/include/bits/types.h /usr/include/libio.h
+nrmlzf.o: /usr/include/_G_config.h /usr/include/wchar.h
+nrmlzf.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+nrmlzf.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+nrmlzf.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+nrmlzf.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+nrmlzf.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+nrmlzf.o: case.h layer.h struct.h modcon.h output.h
+width.o: /usr/include/stdio.h /usr/include/features.h
+width.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+width.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+width.o: /usr/include/bits/types.h /usr/include/libio.h
+width.o: /usr/include/_G_config.h /usr/include/wchar.h
+width.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+width.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+width.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+width.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+width.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+width.o: case.h layer.h struct.h modcon.h output.h
+ftfeld.o: /usr/include/stdio.h /usr/include/features.h
+ftfeld.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+ftfeld.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+ftfeld.o: /usr/include/bits/types.h /usr/include/libio.h
+ftfeld.o: /usr/include/_G_config.h /usr/include/wchar.h
+ftfeld.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+ftfeld.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+ftfeld.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+ftfeld.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+ftfeld.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+ftfeld.o: case.h layer.h struct.h modcon.h output.h
+field.o: /usr/include/stdio.h /usr/include/features.h
+field.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+field.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+field.o: /usr/include/bits/types.h /usr/include/libio.h
+field.o: /usr/include/_G_config.h /usr/include/wchar.h
+field.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+field.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+field.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+field.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+field.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+field.o: case.h layer.h struct.h modcon.h output.h
+readloopz.o: /usr/include/stdio.h /usr/include/features.h
+readloopz.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+readloopz.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+readloopz.o: /usr/include/bits/types.h /usr/include/libio.h
+readloopz.o: /usr/include/_G_config.h /usr/include/wchar.h
+readloopz.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+readloopz.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+readloopz.o: /usr/include/bits/stdio_lim.h util.h charmatrix.h
+readloopz.o: local_complex.h layer.h struct.h
+numzlp.o: /usr/include/stdio.h /usr/include/features.h
+numzlp.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+numzlp.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+numzlp.o: /usr/include/bits/types.h /usr/include/libio.h
+numzlp.o: /usr/include/_G_config.h /usr/include/wchar.h
+numzlp.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+numzlp.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+numzlp.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+numzlp.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+numzlp.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+numzlp.o: case.h layer.h struct.h modcon.h output.h
+zincr.o: /usr/include/stdio.h /usr/include/features.h
+zincr.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+zincr.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+zincr.o: /usr/include/bits/types.h /usr/include/libio.h
+zincr.o: /usr/include/_G_config.h /usr/include/wchar.h
+zincr.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+zincr.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+zincr.o: /usr/include/bits/stdio_lim.h /usr/include/math.h
+zincr.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+zincr.o: /usr/include/bits/mathcalls.h util.h charmatrix.h local_complex.h
+zincr.o: case.h layer.h struct.h modcon.h output.h
+spock.o: /usr/include/stdio.h /usr/include/features.h
+spock.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+spock.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stddef.h
+spock.o: /usr/include/bits/types.h /usr/include/libio.h
+spock.o: /usr/include/_G_config.h /usr/include/wchar.h
+spock.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+spock.o: /usr/lib/gcc-lib/i386-redhat-linux/2.96/include/stdarg.h
+spock.o: /usr/include/bits/stdio_lim.h /usr/include/string.h util.h
+spock.o: charmatrix.h local_complex.h struct.h modcon.h layer.h output.h
+spock.o: case.h

@@ -1,0 +1,7 @@
+Installation
+************
+
+Run 'make' in "commands/" and "matsys/" directory before running
+a 'make' in the top level install directory.
+
+ 

@@ -1,0 +1,16 @@
+2/4/05 -- First release version 0.001
+
+Version 0.002 (2/15/05)
+----------------------
+Fixed near field calculation for kbc0 = 3 and kbc0 = 2 case.
+Fixed far field calculations (ftfeld.c).
+
+Version 0.004 (4/4/05)
+----------------------
+Fixed near field intensity calculation.
+Fixed near field plotting routine to make sure minimum of 10
+points inside each layer are plotted.
+Added QZMR looping function.
+Started working on the Makefile.
+
+

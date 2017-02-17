@@ -1,0 +1,29 @@
+\a Alert Bell
+
+\b Backspace
+
+\f Form Feed
+
+\n New Line
+
+\r Carriage Return
+
+\t Horizontal Tab
+
+\v Vertical Tab
+
+\\ Backslash
+
+\? Question Mark
+
+\' Single Quote
+
+\" Double Quotes
+
+ESC [ Pm m	Character Attributes (SGR)
+		Ps = 0 -> Normal (default)
+		Ps = 1 -> Blink (appears as Bold)
+		Ps = 4 -> Underscore
+		Ps = 5 -> Bold
+		Ps = 7 -> Inverse
+

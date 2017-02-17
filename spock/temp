@@ -1,0 +1,10 @@
+			  /* accept iterate as a converged root or as */
+			  /* last iterate */
+			  caseptr->z0[n] = zz;
+			  caseptr->fm[n] = sqrt(fqz);
+			  caseptr->kr[n] = ks;
+			  if (ks >= 5)
+			    {
+			      kant = 0;
+			    }	  
+			}
