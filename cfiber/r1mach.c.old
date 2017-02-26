@@ -1,0 +1,86 @@
+/* ************************************************************* **/
+/* Copyright Edunotes                                             */
+/* All rights reserved.                                           */
+/* For questions or comments email edunotes@edunotes.org          */
+/*                                                                */
+/* ***PURPOSE  Return floating point machine dependent constants. */
+/* ***TYPE     Single precision                                   */
+/* ***DESCRIPTION                                                 */
+/*   r1mach can be used to obtain machine-dependent parameters    */
+/*   for the local machine environment.                           */
+/*   a = r1mach(i)                                                */
+/*   where i = 0,...,4.  The (output) value of 'a' above is       */
+/*   determined by the (input) value of 'i'. The results for      */
+/*   various values of 'i' are discussed below.                   */
+/*   r1mach(0) = b**(emin - 1), the smallest positive magnitude.  */
+/*   r1mach(1) = b**emax*(1 - b**(-t)), the largest magnitude.    */
+/*   r1mach(2) = b**(-t), the smallest relative spacing.          */
+/*   r1mach(3) = b**(1 - t), the largest relative spacing.        */
+/*   r1mach(4) = log10(b)                                         */
+
+/*   Assume single precision numbers are represented in the       */
+/*   t-digit, base-b form                                         */
+
+/*       sign (b**e)*( (x(1)/b) + ... + (x(t)/b**t) )             */
+
+/*   where 0 <= x(i) < b for i = 1,...,t, 0 < x(1), and           */
+/*   emin <= e <= emax.                                           */
+
+/*   The values of b, t, emin and emax are provided in i1mach as  */
+/*   follows:                                                     */
+/*   i1mach( 9) = b, the base.                                    */
+/*   i1mach(10) = t, the number of base-b digits.                 */
+/*   i1mach(11) = emin, the smallest exponent e.                  */
+/*   i1mach(12) = emax, the largest exponent e.                   */
+
+/* ***REFERENCES  P. A. Fox, A. D. Hall and N. L. Schryer,        */
+/*   Framework for a portable library, ACM Transactions on        */
+/*   Mathematical Software 4, 2 (June 1978), pp. 177-188.         */
+/* ***END PROLOGUE  r1mach */
+
+#include <stdio.h>
+#include "f2c.h"
+
+static integer c__1 = 1;
+static integer c__2 = 2;
+
+double r1mach_(integer *i)
+{
+  /* Initialized data                                             */
+  static struct
+  {
+    real e1[5];
+    long int fill2[1];
+  } equiv_4 = { (float)1.18e-38, (float)3.40e+38, (float)0.595e-07, 
+		(float)1.19e-07, (float)0.30102999566 };
+
+#define log10 ((long int *)&equiv_4 + 4)
+#define large ((long int *)&equiv_4 + 1)
+#define rmach ((real *)&equiv_4)
+#define small ((long int *)&equiv_4)
+#define diver ((long int *)&equiv_4 + 3)
+#define right ((long int *)&equiv_4 + 2)
+
+  /* System generated locals                                      */
+  real ret_val;
+  extern int xermsg_();
+
+  if ((*i < 1) || (*i > 5))
+    {
+      xermsg_("machsys", "r1mach", "i out of bounds", &c__1, &c__2, 6L, 6L, 
+	     15L);
+    }
+
+  ret_val = rmach[*i];
+  return ret_val;
+
+}
+
+#undef right
+#undef diver
+#undef small
+#undef rmach
+#undef large
+#undef log10
+
+

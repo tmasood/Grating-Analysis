@@ -1,0 +1,97 @@
+/* **********************************************************************/
+/* Copyright Edunotes                                                   */
+/* All rights reserved.                                                 */
+/* For questions or comments email edunotes@edunotes.org                */
+/*                                                                      */
+/*                                                                      */
+/* ***Begin Prologue:  i1mach                                           */
+/* ***Purpose:  Return integer machine dependent constants.             */
+
+/* ***DESCRIPTION                                                       */
+/*   i1mach can be used to obtain machine-dependent parameters for the  */
+/*   local machine environment.  It is a function subprogram with one   */
+/*   (input) argument and can be referenced as follows:                 */
+
+/*        k = i1mach(i)                                                 */
+
+/*   where i=0,...,15. The value of "k" above is determined by          */
+/*   the (input) value of i.  The results for various values of i are   */
+/*   discussed below.                                                   */
+
+/*   i/o unit numbers:                                                  */
+/*     i1mach( 0) = the standard input unit.                            */
+/*     i1mach( 1) = the standard output unit.                           */
+/*     i1mach( 2) = the standard punch unit.                            */
+/*     i1mach( 3) = the standard error message unit.                    */
+
+/*   Words:                                                             */
+/*     i1mach( 4) = the number of bits per integer storage unit.        */
+/*     i1mach( 5) = the number of characters per integer storage unit.  */
+
+/*   Integers:                                                          */
+/*     assume integers are represented in the s-digit, base-a form      */
+
+/*                sign ( x(s - 1)*a**(s-1) + ... + x(1)*a + x(0) )      */
+
+/*                where 0 <= x(i) < a for i = 0,...,s - 1.              */
+
+/*     i1mach( 6) = a, the base.                                        */
+/*     i1mach( 7) = s, the number of base-a digits.                     */
+/*     i1mach( 8) = a**s - 1, the largest magnitude.                    */
+
+/*   Floating-Point Numbers:                                            */
+/*     Assume floating-point numbers are represented in the t-digit,    */
+/*     base-b form                                                      */
+/*                sign (b**e)*( (x(1)/b) + ... + (x(t)/b**t) )          */
+
+/*                where 0 <= x(i) < b for i=1,...,t,                    */
+/*                0 < x(1), and emin <= e <= emax                       */
+
+/*     i1mach( 9) = b, the base.                                        */
+
+/*   Single-Precision:                                                  */
+/*     i1mach(10) = t, the number of base-B digits.                     */
+/*     i1mach(11) = emin, the smallest exponent e.                      */
+/*     i1mach(12) = emax, the largest exponent e.                       */
+
+/*   Double-Precision:                                                  */
+/*     i1mach(13) = t, the number of base-b digits.                     */
+/*     i1mach(14) = emin, the smallest exponent e.                      */
+/*     i1mach(15) = emax, the largest exponent e.                       */
+
+/*   The values of i1mach(0) - i1mach(3) should be                      */
+/*   checked for consistency with the local operating system.           */
+
+/* ***REFERENCES  P. A. Fox, A. D. Hall and N. L. Schryer, Framework for*/
+/*                 a portable library, ACM Transactions on Mathematical */
+/*                 Software 4, 2 (June 1978), pp. 177-188.              */
+/* ***END PROLOGUE  i1mach                                              */
+
+#include <stdio.h>
+#include "f2c.h"
+
+static integer c__1 = 1;
+static integer c__2 = 2;
+
+long int i1mach_(long int *i)
+{
+  /* Initialized data */
+  static long int imach[16] =
+  { 5, 6, 6, 6, 32, 4, 2, 31, 2147483647,
+    2, 24, -125, 128, 53, -1021, 1024 };
+  
+  long int ret_val;
+  
+  extern int xermsg_();
+
+  if ((*i < 1) || (*i > 16))
+    {
+	xermsg_("machsys", "i1mach", "i out of bounds", &c__1, &c__2,
+	       6L, 6L, 15L);
+    }
+
+    ret_val = imach[*i - 1];
+    return ret_val;
+
+}
+

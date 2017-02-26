@@ -1,0 +1,12 @@
+ ***MESSAGE FROM ROUTINE r1mach IN LIBRARY machsy.
+ ***FATAL ERROR, PROG ABORTED, TRACEBACK REQUESTED
+ *  i out of bounds
+ *  ERROR NUMBER = 1
+ *   
+ ***END OF MESSAGE
+ 
+ ***JOB ABORT DUE TO FATAL ERROR.
+0          ERROR MESSAGE SUMMARY
+ LIBRARY    SUBROUTINE MESSAGE START             NERR     LEVEL     COUNT
+ machsy     r1mach     i out of bounds              1         2         1
+
