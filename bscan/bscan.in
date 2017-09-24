@@ -1,0 +1,12 @@
+1.28   0.2033  0.5   7     7
+1.7    3.19876   3.19876   3.261711    3.19876
+0.0    0.12      0.01      0.387       0.0
+0.000089   3.200293
+0.1846  -0.0001 0.1
+48 8
+      READ(5,*)   ALAMUM,CLAMUM,DC,NFL,NC
+      READ(5,*)  (ETA(I),I=1,5)
+      READ(5,*)  (W(I),I=1,5)
+      READ(5,*)   ZGR,ZGI
+      READ(5,*)   VAREND,DVAR,PECMAX
+      READ(5,*)   ITMAX,ITMIN

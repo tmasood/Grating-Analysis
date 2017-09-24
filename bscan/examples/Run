@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+
+use File::Copy;
+use Benchmark;
+$t0 = new Benchmark;
+
+
+print "Starting Execution.\n";
+
+$FILE = $ARGV[0];
+
+$home = $ENV{"HOME"};
+$EXEC = "$home/cprogs/BE/Bscan";
+print "Data File : $FILE \n";
+print "Cleaning Subdirectories.\n";
+
+if(chdir "./Loaded"){
+  unlink <*.dat>;
+  chdir "../";
+  }
+else
+  {
+  mkdir "./Loaded",0777;
+  }
+
+if(chdir "./Unloaded"){
+  unlink <*.dat>;
+  chdir "../";
+  }
+else{
+  mkdir "./Unloaded", 0777;
+  }
+
+if(chdir "./OMB"){
+  unlink <*.dat>;
+  chdir "../";
+  }
+else{
+  mkdir "./OMB", 0777;
+  }
+
+system("$EXEC -G -L -F -S -N90 $FILE | tee out");
+
+$t1 = new Benchmark;
+$td = timediff($t1, $t0);
+
+print "Execution times: ", timestr($td), "\n";

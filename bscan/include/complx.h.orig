@@ -1,0 +1,78 @@
+/*****************************************************/
+typedef struct{
+  double re;
+  double im;
+} complx;
+
+static const complx ZZERO = {0.0, 0.0};
+static const complx ZONE = {1.0, 0.0};
+static const complx ZJ = {0.0, 1.0};
+
+/* A complx 2x2 matrix */
+typedef struct{
+  complx e11;
+  complx e21;
+  complx e12;
+  complx e22;
+} Zmatrix;
+
+typedef struct{
+  complx e1;
+  complx e2;
+} zvector;               
+
+/* complx function prototypes */
+
+complx cneg( complx );   /* negation of a dp complx no. */
+/*ADDITION*/
+complx cadd( complx, complx ); /* sum of two complx nos. */
+complx cfadd( complx, double );/* add a complx to a double. */
+complx fcadd( double, complx );/* add a double to a complx. */
+/*SUBTRACTION*/
+complx csub( complx, complx ); /* difference of two complx nos. */
+complx cfsub( complx, double );/* sub a double from a complx. */
+complx fcsub( double, complx );/* sub a complx from a double. */
+/*MULTIPLICATION*/
+complx csq( complx );          /*Square of a complex number */
+complx cmul( complx, complx ); /* product of two complx nos. */
+complx fcm( double, complx );  /* product of double and  complx nos. */
+complx cfm( complx, double );  /* product of complx and double */
+complx tmul( complx, complx, complx );   /* product of three complx nos. */
+complx fmul( complx, complx, complx, complx );/* product of four complx nos.*/
+/*DIVISION*/
+complx cdd(complx, double );   /* complx divided by double. */
+complx dcd(double, complx );   /* double divided by complx. */
+complx cdiv( complx, complx ); /* quotient of two complx nos. */
+complx tdiv( complx, complx, complx );   /* a*b/c */
+complx fdiv( complx, complx, complx, complx );   /* a*b*c/d */
+complx zinv( complx ); /* inverse of a complx number. */
+
+complx dconjg( complx ); /* complx conjugate */
+/* Muller's method - zeros of a complx function */
+complx croot(complx (* )(complx ),complx *, complx *, int *, int , int *);
+int ceq( complx, complx );   /* return TRUE if complx nos. equal */
+
+   /* complx Library Functions */
+complx ftoc(double,double); /* convert floats to dp complx */
+complx csqrt( complx );  /* (positive) sq root of dp complx no. */
+complx zconj( complx );  /* dp complx conjugate */
+complx zexp( complx );   /* dp complx exponential */
+complx zlog( complx );   /* dp complx natural log */
+complx zsqrt( complx );  /* branch cut in third quadrant. */
+complx ztan( complx );   /* tangent of dp complx no. */
+complx zunounp1(int , complx ); /* Ratio of Cheb polys. */
+complx casin( complx );  /* sine of dp complx no. */
+complx cacos( complx );  /* sine of dp complx no. */
+complx csin( complx );   /* sine of dp complx no. */
+complx ccos( complx );   /* cosine of dp complx no. */
+complx btan( complx );   /* tangent residue with a big arg. */
+complx czeta( complx );  /* czeta(z) = tan(z) - j  */
+
+double zabs( complx );   /* dp complx absolute value */
+double zabs2( complx );   /* dp complx absolute value squared.*/
+double cabs1( complx );  /* dp sum of |real| and |imag| parts. */
+
+void cguesses(complx *);
+void zcheb( int , complx , complx *, complx * ); /*Un(z) chebyshev */
+
+zvector zvm(Zmatrix , zvector); /* Multiply complx matrix and complx */

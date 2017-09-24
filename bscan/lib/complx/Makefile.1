@@ -1,0 +1,66 @@
+#---------------------------------------------------------------------
+#
+#  Jerome K. Butler 
+#  November 21, 1996
+#  Last updated March 5, 1997 
+#
+#######################################################################
+CC		= gcc
+INCLUDEPATH	= /home/jkb/include
+CFLAGS		= -I$(INCLUDEPATH) -O2
+LOADER		= gcc
+#
+ARCH		= ar
+ARCHFLAGS 	= cr
+RANLIB		= ranlib
+COMPLXLIB	= ../libcomplx.a
+
+#---------------------------------------------------------
+#  
+# 
+#---------------------------------------------------------
+COMPLX =	btan.o \
+		cabs1.o \
+                cadd.o \
+                casin.o \
+		ccos.o \
+		cdiv.o \
+		ceq.o \
+		cfdiv.o \
+		cguesses.o \
+		croot.o \
+		csin.o \
+		cmul.o \
+		cneg.o \
+		csub.o \
+		csqrt.o \
+		fmul.o \
+		fcm.o \
+		tdiv.o \
+		fdiv.o \
+		zinv.o \
+		dconjg.o \
+		ftoc.o \
+		tmul.o \
+		zsqrt.o \
+		zlog.o \
+		zexp.o \
+		ztan.o \
+		zabs.o \
+		zdiv.o \
+		zch.o \
+		zsh.o \
+		unit.o \
+		zvm.o
+
+complex : $(COMPLX)
+	$(ARCH) $(ARCHFLAGS) $(COMPLXLIB) $(COMPLX)
+	$(RANLIB) $(COMPLXLIB)
+
+
+clean:
+	rm -f *.o
+
+.c.o: 
+	$(CC) $(CFLAGS) -c $*.c
+

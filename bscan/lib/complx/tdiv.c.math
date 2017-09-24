@@ -1,0 +1,6 @@
+(cpre*lpim + cpim*lpre)*rpim/(rpim*rpim + rpre*rpre) + 
+   (-cpim*lpim + cpre*lpre)*rpre/(rpim*rpim + rpre*rpre); 
+   
+   -((-cpim*lpim + cpre*lpre)*rpim/
+         (rpim*rpim + rpre*rpre)) + 
+      (cpre*lpim + cpim*lpre)*rpre/(rpim*rpim + rpre*rpre)

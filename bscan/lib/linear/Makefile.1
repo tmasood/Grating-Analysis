@@ -1,0 +1,40 @@
+#---------------------------------------------------------------------
+#
+#  Jerome K. Butler 
+#  November 21, 1996
+#  Last updated November 21, 1996 
+#
+#######################################################################
+CC		= gcc
+INCLUDEPATH	= /home/jkb/include
+CFLAGS		= -I$(INCLUDEPATH) -O2
+LOADER		= gcc
+#
+ARCH		= ar
+ARCHFLAGS 	= cr
+RANLIB		= ranlib
+LINEARLIB	= ../liblinear.a
+
+#---------------------------------------------------------
+#  
+# 
+#---------------------------------------------------------
+LINEAR =	cout_.o \
+		indexx.o \
+		iout_.o \
+		lud_.o \
+		rout_.o \
+		matrixmodify.o \
+		vectormodify.o
+
+linear : $(LINEAR)
+	$(ARCH) $(ARCHFLAGS) $(LINEARLIB) $(LINEAR)
+	$(RANLIB) $(LINEARLIB)
+
+
+clean:
+	rm -f *.o
+
+.c.o: 
+	$(CC) $(CFLAGS) -c $*.c
+

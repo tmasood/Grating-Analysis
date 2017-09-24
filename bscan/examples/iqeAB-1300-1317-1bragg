@@ -1,0 +1,59 @@
+# Wavelength
+1.317
+# Grating Layer; Layer Fill; Period; Duty Cycle(Fraction)
+1	0	0.2020	0.5
+# The number of boundary points is related to space harmonics
+# Number(half) of Space Harmonics and NC (vertical boundary points)
+#3	2
+5	5
+#7	5
+#15	10
+# Zguess
+#0.00092610	3.2218686
+0.00092610	3.2307054
+#Minimum (itmin) and maximum (itmax) itterations
+8	50
+#varend, dvar, pecmax
+0.404	0.0001	10.5	0.001
+# Number Layers;
+27
+# Layer Data Below
+# Input Data form
+# I1: Layer Number
+# D2: Left Side Index of Layer
+# D3: Right Side Index of Layer
+# D4: Absorption Coefficient (/cm)
+# I5: Is the layer flat? (0 = no)
+# D6: Layer thicknes (Same units as wavelength)
+# I7: Number of layers to be repeated
+# I8: Number of repeating layer combinations
+# S9: Layer comments
+# I1	D2	D3	D4	I5	D6	I7	I8	S9
+0	1.7	1.7	0.	1	0.0	1	1	Nitride Layer
+1	3.1987	3.1987	0.	1	0.1300	1	1	Grating Layer
+2	3.1987	3.1987	0.	1	0.0001	1	1	PSpacer
+3	3.2689	3.2500	0.	1	0.0033	1	1	pTransitionGRIN
+4	3.2500	3.2400	0.	1	0.0033	1	1	pTransition GRIN
+5	3.2400	3.2310	0.	1	0.0033	1	1	pTransition GRIN
+6	3.2310	3.2310	0.	1	0.011	1	1	InnerPCladding
+7	3.2310	3.2900	0.	1	0.050	1	1	PSrin
+8	3.2900	3.3300	0.	1	0.050	1	1	PSrin
+9	3.3300	3.3728	0.	1	0.050	1	1	PSrin
+10	3.4850	3.4850	0.	1	0.005	1	1	QW
+11	3.3728	3.3728	0.	1	0.01	1	1	Barrier
+12	3.4850	3.4850	0.	1	0.005	1	1	QW
+13	3.3728	3.3728	0.	1	0.01	1	1	Barrier
+14 	3.4850	3.4850	0.	1	0.005	1	1	QW
+15	3.3728	3.3728	0.	1	0.01	1	1	Barrier
+16	3.4850	3.4850	0.	1	0.005	1	1	QW
+17	3.3728	3.3728	0.	1	0.01	1	1	Barrier
+18	3.4850	3.4850	0.	1	0.005	1	1	QW
+19	3.3728	3.3300	0.	1	0.050	1	1	NSrin
+20	3.3300	3.2910	0.	1	0.050	1	1	NSrin
+21	3.2910	3.2310	0.	1	0.050	1	1	NSrin
+22	3.2310	3.2310	0.	1	0.011	1	1	InnerNCladding
+23	3.2310	3.2400	0.	1	0.0033	1	1	nTransition GRIN
+24	3.2400	3.2500	0.	1	0.0033	1	1	nTransition GRIN
+25	3.2500	3.2689	0.	1	0.0033	1	1	nTransition GRIN
+26	3.1987	3.1987	0.	1	0.0	1	1	NSubstrate
+

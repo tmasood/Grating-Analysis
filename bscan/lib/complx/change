@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+$FILE = $ARGV[0];
+
+$OLDFILE = $FILE.".c";
+$NEWFILE = $FILE.".cc";
+
+system( "sed -e 's/complex/complx/g' $OLDFILE >$NEWFILE" ); 
+
+unlink $OLDFILE;
+rename ( $NEWFILE, $OLDFILE );

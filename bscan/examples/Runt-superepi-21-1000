@@ -1,0 +1,65 @@
+#!/usr/bin/perl
+
+use File::Copy;
+use Benchmark;
+$t0 = new Benchmark;
+
+
+print "Starting Execution.\n";
+
+$FILE = $ARGV[0];
+
+$home = $ENV{"HOME"};
+$EXEC = "$home/modeling/tools/grating/Bscan";
+print "Data File : $FILE \n";
+print "Cleaning Subdirectories.\n";
+
+if(chdir "./Loaded/2"){
+  unlink <*.dat>;
+  chdir "../../";
+  }
+else
+  {
+  mkdir "./Loaded/2",0777;
+  }
+
+if(chdir "./Loaded/2/Near"){
+  unlink <*.dat>;
+  chdir "../../../";
+  }
+else
+  {
+  mkdir "./Loaded/2/Near",0777;
+  }
+
+if(chdir "./Loaded/2/Far"){
+  unlink <*.dat>;
+  chdir "../../../";
+  }
+else
+  {
+  mkdir "./Loaded/2/Far",0777;
+  }
+
+if(chdir "./Unloaded"){
+  unlink <*.dat>;
+  chdir "../";
+  }
+else{
+  mkdir "./Unloaded", 0777;
+  }
+
+if(chdir "./OMB/2"){
+  unlink <*.dat>;
+  chdir "../../";
+  }
+else{
+  mkdir "./OMB/2", 0777;
+  }
+
+system("$EXEC -B2 -G -L -F -P21 -S -N10 $FILE | tee out");
+
+$t1 = new Benchmark;
+$td = timediff($t1, $t0);
+
+print "Execution times: ", timestr($td), "\n";

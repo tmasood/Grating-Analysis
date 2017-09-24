@@ -1,0 +1,40 @@
+#---------------------------------------------------------------------
+#
+#  Jerome K. Butler 
+#  November 21, 1996
+#  Last updated April 1999 
+#
+#######################################################################
+CC		= g++
+CFLAGS		= -O -fPIC
+INCLUDEPATH	= -I/home/jkb/include
+#
+#---------------------------------------------------------
+# The Object Files
+#---------------------------------------------------------
+OBJS = \
+	Dcheb.o \
+	Floc.o \
+	Powi.o \
+	Simp.o \
+	dunounp1.o
+#---------------------------------------------------------
+library	: $(OBJS)
+	gcc -shared -Wl,-soname,libJkb.so.1 -o libJkb.so.1.0 $(OBJS)
+
+install : 
+	ln -sf libJkb.so.1.0 libJkb.so.1
+	ln -sf libJkb.so.1 libJkb.so
+	mv -f libJkb.so ../
+	mv -f libJkb.so.1 ../
+	mv -f libJkb.so.1.0 ../
+
+clean:
+	rm -f *.o
+	rm -f libJkb.so.1.0
+	rm -f libJkb.so.1
+	rm -f libJkb.so
+
+.c.o: 
+	$(CC) $(CFLAGS) $(INCLUDEPATH)  -c $*.c
+

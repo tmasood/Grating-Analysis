@@ -1,0 +1,17 @@
+set cntrparam levels 10
+set xrange [0:1]
+set yrange [-0.2:0.8]
+set view 60,60
+#set auto
+set zrange [0.0:1.0]
+set data style lines
+set title "3D gnuplot demo - contour of data grid plotting"
+set parametric
+splot "fields.dat"
+pause -1 "Hit return to continue (19)"
+set zrange [0.0:1.2]
+set noparametric
+splot "fields.dat" using 1
+pause -1 "Hit return to continue (20)"
+#
+reset

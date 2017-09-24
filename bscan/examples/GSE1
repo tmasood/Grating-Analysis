@@ -1,0 +1,51 @@
+# Wavelength in microns
+0.975
+# Grating Layer; Layer Fill; Period; Duty Cycle(Fraction)
+#1	0	0.482	0.5
+13	14	0.291	0.5
+#1	0	0.2422	0.5
+#1	0	0.1	0.51
+# The number of boundary points is related to space harmonics
+# Number(half) of Space Harmonics and NC (vertical boundary points)
+# 3	2
+5	5
+# 9	9
+# 11	11
+#15	15
+# 15	21
+# Zguess
+0.00092610	3.343634
+#0.00092610	3.2153
+#Minimum (itmin) and maximum (itmax) itterations
+10	50
+#varend, dvar, pecmax, dvarmax
+ 0.244	0.0001	0.15	0.001
+# Number Layers
+16
+# Input Data form
+# 1: (int)Layer Number
+# 2: (double)Left Side Index of Layer
+# 3: (double)Right Side Index of Layer
+# 4: (double)Extinction Coefficient(position for absorbtion)
+# 5: (int)Is the layer flat? (0 = no)
+# 6: (double)Layer thickness (Same units as wavelength)
+# 7: (int)Number of layers to be repeated
+# 8: (int)Number of repeating layer combinations
+# 9: (char)Layer comments
+#1	2	3	4	5	6	7	8	9
+0	1.0	1.0	0	1	0.0	1	1	Air
+1	3.53212	3.53212	0	1	0.1	1	1	GaAs_Contact
+2	3.32663	3.32663	0	1	1.5	1	1	p-cladding
+3	3.3621	3.3621	0	1	0.017	1	1	GRINSCH
+4	3.3976	3.3976	0	1	0.017	1	1	GRINSCH
+5	3.43305	3.43305	0	1	0.016	1	1	GRINSCH
+6	3.53212	3.53212	0	1	0.005	1	1	GaAs_Shoulder
+7	3.63522	3.63522	0	1	0.009	1	1	InGaAs_QW
+8	3.53212	3.53212	0	1	0.005	1	1	GaAs_Shoulder
+9	3.43305	3.43305	0	1	0.017	1	1	GRINSCH
+10	3.3976	3.3976	0	1	0.017	1	1	GRINSCH
+11	3.3621	3.3621	0	1	0.016	1	1	GRINSCH
+12	3.32663	3.32663	0	1	0.075	1	1	n-cladding
+13	3.32663	3.32663	0	1	0.07	1	1	Grating 
+14	3.47541	3.47541	0	1	0.01	1	1	Lens_under_Grating
+15	3.32663	3.32663	0	1	1.7	1	1	n-claddin

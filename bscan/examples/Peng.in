@@ -1,0 +1,43 @@
+# Wavelength in microns
+1.0
+# Grating,Fill Grating Period and its Duty Cycle(Fraction)
+1       0       0.62     0.5
+# First Bragg
+#1	0	0.31	0.5
+# The number of boundary points is related to space harmonics
+# Number(half) of Space Harmonics and NC (vertical boundary points)
+#3	2
+#5	5
+#9	10
+#11	20
+# Below gives nice picture
+#15	30
+25	20
+#35	45
+#35	25
+# Zguess
+0.004	1.5823
+#0.002	1.58627
+#Minimum (itmin) and maximum (itmax) itterations
+10	50
+#varend, dvar, pecmax, dvarmax
+0.244   0.0002  0.2     0.001
+# Number Layers;
+4
+#
+# Input Data form
+# 1: (int)Layer Number
+# 2: (double)Left Side Index of Layer
+# 3: (double)Right Side Index of Layer
+# 4: (double)Absorption Coefficient (/cm)
+# 5: (int)Is the layer flat? (0 = no)
+# 6: (double)Layer thicknes (Same units as wavelength)
+# 7: (int)Number of layers to be repeated
+# 8: (int)Number of repeating layer combinations
+# 9: (char)Layer comments
+#1	2		3		4	5	6	7	8	9
+0	1.0		1.0		0.	1	0.000	1	1	AirRegion
+1	1.732051	1.732051	0.	1	0.4	1	1	GratingLayer
+2	1.732051	1.732051	0.	1	0.31831	1	1	Waveguide
+3 	1.516575	1.516575	0.	1	0.000	1	1	Substrate
+

@@ -1,0 +1,119 @@
+#######################################################################
+#  This is the makefile to create a library for the BLAS.
+#  The files are g.cuped as follows:
+#
+#       DBLAS1 -- double precision real BLAS routines
+#       ZBLAS1 -- double precision complex BLAS routines
+#
+#       ZB1AUX -- D.P. real BLAS .cutines called by d.p. complex
+#                 routines
+#
+#       DBLAS2 -- double precision real BLAS2 routines
+#       ZBLAS2 -- double precision complex BLAS2 routines
+#
+#       DBLAS3 -- double precision real BLAS3 routines
+#       ZBLAS3 -- double precision complex BLAS3 routines
+#
+#  The library can be set up to include routines for any combination
+# of the four precisions.  To create or add to the library, enter make
+#  followed by one or more of the precisions desired.  Some examples:
+#       make double complex16
+#  Alternatively, the command
+#       make
+#  without any arguments creates a library of all four precisions.
+#  The library is called
+#       blas.a
+#
+#  to remove the object files after the library is created, enter
+#       make clean
+#  to force the source files to be recompiled, enter, for example,
+#       make single FRC=FRC
+#
+#---------------------------------------------------------------------
+#
+#  Edward Ander.cn, University of Tennessee
+#  March 26, 1990
+#  Susan.cstrouchov, Last updated September 30, 1994
+#
+#######################################################################
+###
+# Change the path in the 2 lines below.
+INCLUDEPATH	= -I /home/jkb/include
+LIBPATH		= /home/jkb/lib
+
+CC		= gcc
+CFLAGS		= -O3 -fPIC
+
+#
+#---------------------------------------------------------
+#  comment out the next 6 definitions if you already have
+#  the Level 1 BLAS.
+#---------------------------------------------------------
+DBLAS1 = idamax.o dasum.o daxpy.o dcopy.o ddot.o dnrm2.o \
+	drot.o drotg.o dscal.o dswap.o
+
+ZBLAS1 = dcabs1.o dzasum.o dznrm2.o izamax.o zaxpy.o zcopy.o \
+	zdotc.o zdotu.o zdscal.o zrotg.o zscal.o zswap.o
+
+#---------------------------------------------------------------------
+#  The following line defines auxiliary routines needed by both the
+#  Level 2 and Level 3 BLAS.  .cmment it out only if you already have
+#  .cth the Level 2 and 3 BLAS.
+#---------------------------------------------------------------------
+ALLBLAS  = lsame.o xerbla.o
+
+#---------------------------------------------------------
+#  comment out the next 4 definitions if you already have
+#  the Level 2 BLAS.
+#---------------------------------------------------------
+DBLAS2 = dgemv.o dgbmv.o dsymv.o dsbmv.o dspmv.o \
+	dtrmv.o dtbmv.o dtpmv.o dtrsv.o dtbsv.o dtpsv.o \
+	dger.o dsyr.o dspr.o dsyr2.o dspr2.o
+
+ZBLAS2 = zgemv.o zgbmv.o zhemv.o zhbmv.o zhpmv.o \
+	ztrmv.o ztbmv.o ztpmv.o ztrsv.o ztbsv.o ztpsv.o \
+	zgerc.o zgeru.o zher.o zhpr.o zher2.o zhpr2.o
+
+#---------------------------------------------------------
+#  comment out the next 4 definitions if you already have
+#  the Level 3 BLAS.
+#---------------------------------------------------------
+DBLAS3 = dgemm.o dsymm.o dsyrk.o dsyr2k.o dtrmm.o dtrsm.o
+
+ZBLAS3 = zgemm.o zsymm.o zsyrk.o zsyr2k.o ztrmm.o ztrsm.o \
+	zhemm.o zherk.o zher2k.o
+
+
+#-------------------------------------------------------
+library	: $(DBLAS1) $(ZBLAS1) $(ALLBLAS)\
+	$(DBLAS2) $(ZBLAS2) $(DBLAS3) $(ZBLAS3)
+	gcc -shared -Wl,-soname,libcblas.so.1 -o libcblas.so.3.0\
+	$(DBLAS1) $(ZBLAS1) $(ALLBLAS)\
+	$(DBLAS2) $(ZBLAS2) $(DBLAS3) $(ZBLAS3)
+
+install : 
+	ln -sf libcblas.so.3.0 libcblas.so.1.0
+	ln -sf libcblas.so.3.0 libcblas.so.1
+	ln -sf libcblas.so.3.0 libcblas.so
+	mv libcblas.so.3.0 ${LIBPATH}
+	mv libcblas.so.1.0 ${LIBPATH}
+	mv libcblas.so.1 ${LIBPATH}
+	mv libcblas.so ${LIBPATH}
+
+clean:
+	rm -f *.o
+	rm -f libcblas.so
+	rm -f libcblas.so.1
+	rm -f libcblas.so.1.0
+
+.c.o: 
+	$(CC) $(CFLAGS) $(INCLUDEPATH) -c $*.c
+
+
+
+
+
+
+
+
+
